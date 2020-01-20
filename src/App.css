@@ -2,6 +2,10 @@ a {
   text-decoration: none;
 }
 
+p {
+  font-family: "Roboto";
+}
+
 /* --- HEADER --- */
 
 .header {
@@ -34,7 +38,7 @@ a {
 
 .body .wrapper {
   width: 1200px;
-  background-color: yellow;
+  /* background-color: yellow; */
 }
 
 /* --- BUTTON 1 --- */
@@ -53,15 +57,32 @@ a {
 
 /* --- BUTTON 2 --- */
 
-.button2 {
-  background-color: red;
+#button2 {
+  background: url("./images/imgbutton2.jpg");
   width: 400px;
-}
-.button2 p {
+  min-height: 400px;
   display: flex;
   justify-content: center;
-  line-height: 400px;
+  align-items: center;
+  box-shadow: 0 0 10px grey;
+  background-size: cover;
+}
+
+#button2:hover {
+  opacity: 0.9;
+}
+
+.button2-inside {
+  background-color: rgba(216, 216, 216, 0.8);
+  width: 100%;
+  line-height: 50px;
+  text-align: center;
+}
+
+.button2-inside p {
   color: white;
+  font-weight: 700;
+  font-size: 20px;
 }
 
 /* --- BUTTON --- */
