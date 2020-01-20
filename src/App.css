@@ -6,25 +6,37 @@ p {
   font-family: "Roboto";
 }
 
+body {
+  background-color: #f6f6f6;
+}
+
+hr {
+  color: #fdbab4;
+  background-color: #fdbab4;
+  height: 2px;
+  margin: 0 100px;
+  border: none;
+}
+
 /* --- HEADER --- */
 
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.header .wrapper {
-  width: 1200px;
+  background-image: url("./images/header.jpg");
+  min-height: 200px;
 }
 
 .header p {
-  background-color: red;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 200px;
-  margin: 0;
+}
+
+.nameWeeding p {
+  text-transform: uppercase;
+}
+
+.txt-header {
+  padding: 140px 0 50px 0;
 }
 
 /* --- BODY --- */
@@ -37,29 +49,43 @@ p {
 }
 
 .body .wrapper {
-  width: 1200px;
-  /* background-color: yellow; */
+  width: 100%;
 }
 
 /* --- BUTTON 1 --- */
-.button1 {
-  background-color: blue;
-  /* height: 500px; */
-  width: 400px;
-}
-
-.button1 p {
+#button1 {
+  background: url("./images/imgbutton1.jpg");
+  width: 600px;
+  min-height: 400px;
   display: flex;
   justify-content: center;
-  line-height: 400px;
+  align-items: center;
+  box-shadow: 0 0 10px grey;
+  background-size: cover;
+}
+
+#button1:hover {
+  opacity: 0.9;
+}
+
+.button1-inside {
+  background-color: rgba(216, 216, 216, 0.8);
+  width: 100%;
+  line-height: 50px;
+  text-align: center;
+}
+
+.button1-inside p {
   color: white;
+  font-weight: 700;
+  font-size: 25px;
 }
 
 /* --- BUTTON 2 --- */
 
 #button2 {
   background: url("./images/imgbutton2.jpg");
-  width: 400px;
+  width: 600px;
   min-height: 400px;
   display: flex;
   justify-content: center;
@@ -82,13 +108,14 @@ p {
 .button2-inside p {
   color: white;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 25px;
 }
 
 /* --- BUTTON --- */
 .button {
   display: flex;
   justify-content: space-evenly;
-  margin-bottom: 20px;
-  margin: 50px 0;
+  padding: 66px 0;
+  background-color: #f6f6f6;
+  height: auto;
 }

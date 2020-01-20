@@ -4,9 +4,13 @@ const Header = () => {
   return (
     <>
       <div className="header">
-        <div className="wrapper">
-          <p>HELLO WORLD</p>
+        <div className="txt-header">
+          <p>Bienvenue sur le site du mariage de</p>
+          <div className="nameWeeding">
+            <p>Donovan & Leah</p>
+          </div>
         </div>
+        <hr />
       </div>
     </>
   );
