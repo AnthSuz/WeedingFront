@@ -68,22 +68,30 @@ const InvitWeeding = () => {
       <div className="invitWeeding">
         <p>Invitation Weeding</p>
         <p>PRESENCE AU MARIAGE</p>
-        <p>OUI</p>
-        <input
-          type="radio"
-          name="Oui"
-          value="Oui"
-          onChange={presenceChange}
-          checked={presence === "Oui" ? true : false}
-        />
-        <p>NON</p>
-        <input
-          type="radio"
-          name="Non"
-          value="Non"
-          onChange={presenceChange}
-          checked={presence === "Non" ? true : false}
-        />
+        <div className="yesorno">
+          <div className="yes">
+            <label for="Oui">OUI</label>
+            <input
+              id="Oui"
+              type="radio"
+              name="Oui"
+              value="Oui"
+              onChange={presenceChange}
+              checked={presence === "Oui" ? true : false}
+            />
+          </div>
+          <div className="no">
+            <label for="Non">NON</label>
+            <input
+              id="Non"
+              type="radio"
+              name="Non"
+              value="Non"
+              onChange={presenceChange}
+              checked={presence === "Non" ? true : false}
+            />
+          </div>
+        </div>
         {presence === "Oui" ? (
           <>
             <p>NOM</p>
@@ -137,16 +145,35 @@ const InvitWeeding = () => {
               Validé
             </button>
           </>
-        ) : (
-          <button
-            onClick={() => {
-              fetchData();
-              alert("OOOK");
-            }}
-          >
-            Validé
-          </button>
-        )}
+        ) : presence === "Non" ? (
+          <>
+            <p>NOM</p>
+            <input
+              placeholder="Entrez votre nom"
+              type="text"
+              name="name"
+              value={name}
+              onChange={nameChange}
+            />
+            <p>PRENOM</p>
+            <input
+              placeholder="Entrez votre prénom"
+              type="text"
+              name="firstName"
+              value={firstname}
+              onChange={firstnameChange}
+            />
+            <button
+              onClick={() => {
+                fetchData();
+                alert("OOOK");
+                setName("");
+              }}
+            >
+              Validé
+            </button>
+          </>
+        ) : null}
       </div>
     </>
   );
