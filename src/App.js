@@ -14,6 +14,7 @@ import Header from "./containers/Header";
 import Home from "./components/Home";
 import InfoWeeding from "./components/InfoWeeding";
 import InvitWeeding from "./components/InvitWeeding";
+import AdminWeeding from "./components/Admin";
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <Route path="/Invit_Weeding">
             <InvitWeeding />
+          </Route>
+          <Route path="/Admin_Weeding">
+            <AdminWeeding />
           </Route>
         </Switch>
       </Router>
