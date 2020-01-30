@@ -68,14 +68,23 @@ const InvitWeeding = () => {
   console.log("66666", nbOfChildren);
 
   const allowedChildren = () => {
+    // Nom & Prénom des invités qui ont été invité avec leur enfant
     let nameAllowedChildren = ["Suzanne"];
     let firstNameAllowedChildren = ["Anthony"];
     if (
+      // Si ils sont dans le tableau on passe le state à 1 (Qui permettera de proposer le nombre d'adulte et nombre d'enfant)
       nameAllowedChildren.indexOf(name) !== -1 &&
       firstNameAllowedChildren.indexOf(firstname) !== -1
     ) {
       setChildrenAllowed(1);
     } else if (
+      nameAllowedChildren.indexOf(name) !== -1 &&
+      firstNameAllowedChildren.indexOf(firstname) === -1 &&
+      firstname.length >= 3
+    ) {
+      setChildrenAllowed(2);
+    } else if (
+      // Si ils ne sont pas dans le tableau alors on passe le state à 2 (Qui permettera de proposer uniquement le nombre d'adulte)
       nameAllowedChildren.indexOf(name) === -1 &&
       firstNameAllowedChildren.indexOf(firstname) === -1 &&
       name.length !== 0 &&
@@ -83,6 +92,7 @@ const InvitWeeding = () => {
     ) {
       setChildrenAllowed(2);
     } else if (name.length === 0 || firstname.length === 0) {
+      // Si les champs sont vite, on passe le state à 0 (Qui permettera d'obliger les utilisateurs à remplir les champs pour être attribuer au State 1 ou 2)
       setChildrenAllowed(0);
     }
   };
@@ -95,8 +105,6 @@ const InvitWeeding = () => {
   console.log("children", childrenAllowed);
   return (
     <>
-      {/* {test2()} */}
-      {/* {test === 1 ? <div>je suis le plus fort</div> : <div>je suis pas la</div>} */}
       <Link to="/Home">
         <div className="backHome">
           <svg
@@ -142,6 +150,7 @@ const InvitWeeding = () => {
             />
           </div>
         </div>
+        {/* S'ils sont présent on affiche ceci  */}
         {presence === "Oui" ? (
           <>
             <p>NOM</p>
@@ -168,6 +177,7 @@ const InvitWeeding = () => {
               value={numberPhone}
               onChange={numberPhoneChange}
             />
+            {/* S'ils sont invités avec leur enfant on leur demande le nombre  */}
             {childrenAllowed === 1 ? (
               <>
                 <p>NOMBRE ADULTE</p>
@@ -197,7 +207,8 @@ const InvitWeeding = () => {
                   Validé
                 </button>{" "}
               </>
-            ) : childrenAllowed === 2 ? (
+            ) : // S'ils ne sont pas invités avec leur enfant on leur demande uniquement le nombre d'adulte
+            childrenAllowed === 2 ? (
               <>
                 <p>NOMBRE ADULTE</p>
                 <input
@@ -218,9 +229,11 @@ const InvitWeeding = () => {
                   Validé
                 </button>{" "}
               </>
-            ) : null}
+            ) : // Si les champs sont vide, on leur propose rien
+            null}
           </>
-        ) : presence === "Non" ? (
+        ) : // S'il sont absent on leur affiche que ceci :
+        presence === "Non" ? (
           <>
             <p>NOM</p>
             <input
@@ -248,7 +261,8 @@ const InvitWeeding = () => {
               Validé
             </button>
           </>
-        ) : null}
+        ) : //S'ils répondent rien, alors on leur propose rien
+        null}
       </div>
     </>
   );

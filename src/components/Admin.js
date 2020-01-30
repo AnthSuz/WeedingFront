@@ -19,32 +19,68 @@ const Admin = () => {
 
   return (
     <>
-      <table>
-        <tr className="topArray">
-          <td>Nom</td>
-          <td>Prenom</td>
-          <td>Présence</td>
-          <td>Numéro de Tel.</td>
-          <td>Nb Adulte</td>
-          <td>Nb Enfant</td>
-        </tr>
-      </table>
-      {invite.map((listInvite, index) => {
-        return (
-          <div className="array">
-            <table>
-              <tr>
-                <td>{listInvite.name}</td>
-                <td>{listInvite.firstname}</td>
-                <td>{listInvite.presence}</td>
-                <td>{listInvite.numberPhone}</td>
-                <td>{listInvite.numberAdult}</td>
-                <td>{listInvite.numberChildren}</td>
-              </tr>
-            </table>
-          </div>
-        );
-      })}
+      <div className="arrayAdmin">
+        {/* <table>
+          <td className="topArray">
+            <tr>Nom :</tr>
+            <tr>Prenom :</tr>
+            <tr>Présence :</tr>
+            <tr>Numéro de Tel. :</tr>
+            <tr>Nb Adulte :</tr>
+            <tr>Nb Enfant :</tr>
+          </td>
+        </table> */}
+        {invite.map((listInvite, index) => {
+          return (
+            <div className="array">
+              <table>
+                <td className="responseTitle">
+                  <tr>Nom :</tr>
+                  <tr>Prenom :</tr>
+                  <tr>Présence :</tr>
+                  <tr>Numéro de Tel. :</tr>
+                  <tr>Nb Adulte :</tr>
+                  <tr>Nb Enfant :</tr>
+                </td>
+                <hr className="hrArray" />
+              </table>
+              <table>
+                <td className="responseInvit">
+                  <tr>
+                    {listInvite.name === undefined ? "X" : listInvite.name}
+                  </tr>
+                  <tr>
+                    {listInvite.firstname === undefined
+                      ? "X"
+                      : listInvite.firstname}
+                  </tr>
+                  <tr>
+                    {listInvite.presence === undefined
+                      ? "X"
+                      : listInvite.presence}
+                  </tr>
+                  <tr>
+                    {listInvite.numberPhone === undefined
+                      ? "X"
+                      : listInvite.numberPhone}
+                  </tr>
+                  <tr>
+                    {listInvite.numberAdult === undefined
+                      ? "X"
+                      : listInvite.numberAdult}
+                  </tr>
+                  <tr>
+                    {listInvite.numberChildren === undefined
+                      ? "X"
+                      : listInvite.numberChildren}
+                  </tr>
+                </td>
+                <hr className="hrArray" />
+              </table>
+            </div>
+          );
+        })}
+      </div>
     </>
   );
 };

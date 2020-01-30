@@ -21,7 +21,7 @@ hr {
 
 td {
   border: 1px solid black;
-  min-width: 200px;
+  min-width: 130px;
   height: 40px;
   text-align: center;
 }
@@ -250,4 +250,34 @@ table {
 
 .array {
   display: flex;
+}
+
+.arrayAdmin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.response {
+  display: flex;
+}
+
+.responseTitle {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  padding: 10px 0 10px 0;
+}
+
+.responseInvit {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  padding: 10px 0 10px 0;
+}
+
+.hrArray {
+  width: auto;
+  margin: 0;
 }
