@@ -7,7 +7,7 @@ const Header = () => {
         <div className="txt-header">
           <p>Bienvenue sur le site du mariage de</p>
           <div className="nameWeeding">
-            <p>Donovan & Leah</p>
+            <p>Leah & Donovan</p>
           </div>
         </div>
         <hr />

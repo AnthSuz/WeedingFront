@@ -69,24 +69,62 @@ const InvitWeeding = () => {
 
   const allowedChildren = () => {
     // Nom & Prénom des invités qui ont été invité avec leur enfant
-    let nameAllowedChildren = ["Suzanne"];
-    let firstNameAllowedChildren = ["Anthony"];
+    let nameAllowedChildren = [
+      "SUZANNE",
+      "COHEN",
+      "TOUATI",
+      "CATTAN",
+      "MAAREK",
+      "LUGASSY",
+      "ILLARDO",
+      "DENIS",
+      "SAKOUN",
+      "PEYSKENS",
+      "BILLON",
+      "SAMAMA",
+      "FITOUSSI"
+    ];
+    let firstNameAllowedChildren = [
+      "ANTHONY",
+      "GUILA",
+      "STEPHANE",
+      "JONATHAN",
+      "OLIVIA",
+      "ISABELLE",
+      "VIRGINIE",
+      "RUDY",
+      "LUCY",
+      "KEVIN",
+      "JEREMY",
+      "MELANIE",
+      "JULIE",
+      "GILLES",
+      "JENNIFER",
+      "VIRGINIE",
+      "DANIEL",
+      "OLIVIER",
+      "VANESSA",
+      "SHIRLEY",
+      "MICKAEL",
+      "BRENDA",
+      "DYLAN"
+    ];
     if (
       // Si ils sont dans le tableau on passe le state à 1 (Qui permettera de proposer le nombre d'adulte et nombre d'enfant)
-      nameAllowedChildren.indexOf(name) !== -1 &&
-      firstNameAllowedChildren.indexOf(firstname) !== -1
+      nameAllowedChildren.indexOf(name.toUpperCase()) !== -1 &&
+      firstNameAllowedChildren.indexOf(firstname.toUpperCase()) !== -1
     ) {
       setChildrenAllowed(1);
     } else if (
-      nameAllowedChildren.indexOf(name) !== -1 &&
-      firstNameAllowedChildren.indexOf(firstname) === -1 &&
+      nameAllowedChildren.indexOf(name.toUpperCase()) !== -1 &&
+      firstNameAllowedChildren.indexOf(firstname.toUpperCase()) === -1 &&
       firstname.length >= 3
     ) {
       setChildrenAllowed(2);
     } else if (
       // Si ils ne sont pas dans le tableau alors on passe le state à 2 (Qui permettera de proposer uniquement le nombre d'adulte)
-      nameAllowedChildren.indexOf(name) === -1 &&
-      firstNameAllowedChildren.indexOf(firstname) === -1 &&
+      nameAllowedChildren.indexOf(name.toUpperCase()) === -1 &&
+      firstNameAllowedChildren.indexOf(firstname.toUpperCase()) === -1 &&
       name.length !== 0 &&
       firstname.length >= 3
     ) {
@@ -123,9 +161,11 @@ const InvitWeeding = () => {
           <p className="backHome"> Retour à l'accueil </p>
         </div>
       </Link>
+      {/* FAIRE UN COMPONENTS DU TRUC AU DESSUS */}
       <div className="invitWeeding">
-        <p>Invitation Weeding</p>
-        <p>PRESENCE AU MARIAGE</p>
+        <p className="titleInvitWeeding">
+          Veuillez répondre ci-dessous à l'invitation au mariage
+        </p>
         <div className="yesorno">
           <div className="yes">
             <label for="Oui">OUI</label>
@@ -136,6 +176,7 @@ const InvitWeeding = () => {
               value="Oui"
               onChange={presenceChange}
               checked={presence === "Oui" ? true : false}
+              className="inputRadio"
             />
           </div>
           <div className="no">
@@ -147,7 +188,9 @@ const InvitWeeding = () => {
               value="Non"
               onChange={presenceChange}
               checked={presence === "Non" ? true : false}
+              className="inputRadio"
             />
+            <span className="radioButton2"></span>
           </div>
         </div>
         {/* S'ils sont présent on affiche ceci  */}
@@ -160,6 +203,7 @@ const InvitWeeding = () => {
               name="name"
               value={name}
               onChange={nameChange}
+              className="inputTxt"
             />
             <p>PRENOM</p>
             <input
@@ -168,6 +212,7 @@ const InvitWeeding = () => {
               name="firstName"
               value={firstname}
               onChange={firstnameChange}
+              className="inputTxt"
             />
             <p>NUMERO DE TELEPHONE</p>
             <input
@@ -176,6 +221,7 @@ const InvitWeeding = () => {
               name="numberPhone"
               value={numberPhone}
               onChange={numberPhoneChange}
+              className="inputTxt"
             />
             {/* S'ils sont invités avec leur enfant on leur demande le nombre  */}
             {childrenAllowed === 1 ? (
@@ -187,24 +233,32 @@ const InvitWeeding = () => {
                   name="numberOfAdult"
                   value={nbOfAdult}
                   onChange={nbOfAdultChange}
+                  className="inputTxt"
                 />
-                <p>NOMBRE ENFANT</p>
+                <p>
+                  NOMBRE ENFANT{" "}
+                  <span className="condChildren">
+                    (Enfant de moins de 13 ans)
+                  </span>
+                </p>
                 <input
                   placeholder="Nombre d'enfant"
                   type="number"
                   name="numberOfChildren"
                   value={nbOfChildren}
                   onChange={nbOfChildrenChange}
+                  className="inputTxt"
                 />
                 <br />
                 <button
+                  className="inputValid"
                   onClick={() => {
                     fetchData();
                     alert("OOOK");
                     setName("");
                   }}
                 >
-                  Validé
+                  Valider
                 </button>{" "}
               </>
             ) : // S'ils ne sont pas invités avec leur enfant on leur demande uniquement le nombre d'adulte
@@ -217,16 +271,18 @@ const InvitWeeding = () => {
                   name="numberOfAdult"
                   value={nbOfAdult}
                   onChange={nbOfAdultChange}
+                  className="inputTxt"
                 />
                 <br />
                 <button
+                  className="inputValid"
                   onClick={() => {
                     fetchData();
                     alert("OOOK");
                     setName("");
                   }}
                 >
-                  Validé
+                  Valider
                 </button>{" "}
               </>
             ) : // Si les champs sont vide, on leur propose rien
@@ -235,31 +291,36 @@ const InvitWeeding = () => {
         ) : // S'il sont absent on leur affiche que ceci :
         presence === "Non" ? (
           <>
-            <p>NOM</p>
-            <input
-              placeholder="Entrez votre nom"
-              type="text"
-              name="name"
-              value={name}
-              onChange={nameChange}
-            />
-            <p>PRENOM</p>
-            <input
-              placeholder="Entrez votre prénom"
-              type="text"
-              name="firstName"
-              value={firstname}
-              onChange={firstnameChange}
-            />
-            <button
-              onClick={() => {
-                fetchData();
-                alert("OOOK");
-                setName("");
-              }}
-            >
-              Validé
-            </button>
+            <div className="responseNo">
+              <p>NOM</p>
+              <input
+                placeholder="Entrez votre nom"
+                type="text"
+                name="name"
+                value={name}
+                onChange={nameChange}
+                className="inputTxt"
+              />
+              <p>PRENOM</p>
+              <input
+                placeholder="Entrez votre prénom"
+                type="text"
+                name="firstName"
+                value={firstname}
+                onChange={firstnameChange}
+                className="inputTxt"
+              />
+              <button
+                className="inputValid"
+                onClick={() => {
+                  fetchData();
+                  alert("OOOK");
+                  setName("");
+                }}
+              >
+                Valider
+              </button>
+            </div>
           </>
         ) : //S'ils répondent rien, alors on leur propose rien
         null}
