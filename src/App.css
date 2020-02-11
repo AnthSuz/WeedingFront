@@ -363,3 +363,12 @@ input[type="radio"]:checked:after {
   width: auto;
   margin: 0;
 }
+
+/* --- ADMIN CHILDREN --- */
+
+.ChildrenAdmin {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}

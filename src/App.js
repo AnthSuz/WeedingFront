@@ -15,6 +15,8 @@ import Home from "./components/Home";
 import InfoWeeding from "./components/InfoWeeding";
 import InvitWeeding from "./components/InvitWeeding";
 import AdminWeeding from "./components/Admin";
+import HomeAdminWeeding from "./components/Home_Admin";
+import AddChildrenAllowed from "./components/Children_Admin";
 
 function App() {
   return (
@@ -36,6 +38,12 @@ function App() {
           </Route>
           <Route path="/Admin_Weeding">
             <AdminWeeding />
+          </Route>
+          <Route path="/Admin_Home">
+            <HomeAdminWeeding />
+          </Route>
+          <Route path="/Admin_Children">
+            <AddChildrenAllowed />
           </Route>
         </Switch>
       </Router>

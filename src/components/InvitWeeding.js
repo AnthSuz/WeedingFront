@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, Children } from "react";
 import axios from "axios";
+
+import BackHome from "../containers/BackHome";
 
 const InvitWeeding = () => {
   const [presence, setPresence] = useState(null);
@@ -11,7 +12,7 @@ const InvitWeeding = () => {
   const [nbOfChildren, setNbOfChildren] = useState(undefined);
   const [guest, setGuest] = useState(undefined);
   const [childrenAllowed, setChildrenAllowed] = useState();
-  // const [test, setTest] = useState(0);
+  const [childrenOk, setChildrenOk] = useState();
 
   const presenceChange = event => {
     const value = event.target.value;
@@ -60,6 +61,45 @@ const InvitWeeding = () => {
     }
   };
 
+  const childrenTrue = async () => {
+    try {
+      const responseChildren = await axios.get(
+        "http://localhost:3010/readlistchildren"
+      );
+      setChildrenOk(responseChildren.data);
+      console.log("test 11", childrenOk);
+      console.log("test 22", childrenOk[1].firstname);
+      console.log("test 55", responseChildren.data[1].firstname);
+    } catch (error) {
+      console.log("error");
+    }
+  };
+
+  let firstNameAllowedChildren = [];
+  console.log("test1", firstNameAllowedChildren);
+
+  let nameAllowedChildren = [];
+  console.log("test2", nameAllowedChildren);
+  if (childrenOk !== undefined) {
+    for (let y = 0; y < childrenOk.length; y++) {
+      if (
+        firstNameAllowedChildren.indexOf(
+          childrenOk[y].firstname.toUpperCase()
+        ) === -1
+      ) {
+        firstNameAllowedChildren.push(childrenOk[y].firstname.toUpperCase());
+      }
+
+      if (
+        nameAllowedChildren.indexOf(childrenOk[y].name.toUpperCase()) === -1
+      ) {
+        nameAllowedChildren.push(childrenOk[y].name.toUpperCase());
+      }
+
+      console.log("ici");
+    }
+  }
+
   console.log("11111", presence);
   console.log("22222", name.length);
   console.log("33333", firstname);
@@ -67,48 +107,49 @@ const InvitWeeding = () => {
   console.log("55555", nbOfAdult);
   console.log("66666", nbOfChildren);
 
+  let nameAllowedChildrenDELETE = [
+    "SUZANNE",
+    "COHEN",
+    "TOUATI",
+    "CATTAN",
+    "MAAREK",
+    "LUGASSY",
+    "ILLARDO",
+    "DENIS",
+    "SAKOUN",
+    "PEYSKENS",
+    "BILLON",
+    "SAMAMA",
+    "FITOUSSI"
+  ];
+  let firstNameAllowedChildrenDELETE = [
+    "ANTHONY",
+    "GUILA",
+    "STEPHANE",
+    "JONATHAN",
+    "OLIVIA",
+    "ISABELLE",
+    "VIRGINIE",
+    "RUDY",
+    "LUCY",
+    "KEVIN",
+    "JEREMY",
+    "MELANIE",
+    "JULIE",
+    "GILLES",
+    "JENNIFER",
+    "VIRGINIE",
+    "DANIEL",
+    "OLIVIER",
+    "VANESSA",
+    "SHIRLEY",
+    "MICKAEL",
+    "BRENDA",
+    "DYLAN"
+  ];
   const allowedChildren = () => {
     // Nom & Prénom des invités qui ont été invité avec leur enfant
-    let nameAllowedChildren = [
-      "SUZANNE",
-      "COHEN",
-      "TOUATI",
-      "CATTAN",
-      "MAAREK",
-      "LUGASSY",
-      "ILLARDO",
-      "DENIS",
-      "SAKOUN",
-      "PEYSKENS",
-      "BILLON",
-      "SAMAMA",
-      "FITOUSSI"
-    ];
-    let firstNameAllowedChildren = [
-      "ANTHONY",
-      "GUILA",
-      "STEPHANE",
-      "JONATHAN",
-      "OLIVIA",
-      "ISABELLE",
-      "VIRGINIE",
-      "RUDY",
-      "LUCY",
-      "KEVIN",
-      "JEREMY",
-      "MELANIE",
-      "JULIE",
-      "GILLES",
-      "JENNIFER",
-      "VIRGINIE",
-      "DANIEL",
-      "OLIVIER",
-      "VANESSA",
-      "SHIRLEY",
-      "MICKAEL",
-      "BRENDA",
-      "DYLAN"
-    ];
+
     if (
       // Si ils sont dans le tableau on passe le state à 1 (Qui permettera de proposer le nombre d'adulte et nombre d'enfant)
       nameAllowedChildren.indexOf(name.toUpperCase()) !== -1 &&
@@ -139,35 +180,26 @@ const InvitWeeding = () => {
     {
       allowedChildren();
     }
+    childrenTrue();
   }, [name, firstname]);
+
   console.log("children", childrenAllowed);
   return (
     <>
-      <Link to="/Home">
-        <div className="backHome">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#000000"
-            strokeWidth="1"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M19 12H6M12 5l-7 7 7 7" />
-          </svg>
-          <p className="backHome"> Retour à l'accueil </p>
-        </div>
-      </Link>
-      {/* FAIRE UN COMPONENTS DU TRUC AU DESSUS */}
+      <BackHome />
       <div className="invitWeeding">
         <p className="titleInvitWeeding">
           Veuillez répondre ci-dessous à l'invitation au mariage
         </p>
         <div className="yesorno">
-          <div className="yes">
+          <div
+            className="yes"
+            onClick={() => {
+              {
+                childrenTrue();
+              }
+            }}
+          >
             <label for="Oui">OUI</label>
             <input
               id="Oui"
@@ -255,7 +287,12 @@ const InvitWeeding = () => {
                   onClick={() => {
                     fetchData();
                     alert("OOOK");
+                    setPresence(null);
                     setName("");
+                    setFirstname("");
+                    setNumberPhone(undefined);
+                    setNbOfAdult(undefined);
+                    setNbOfChildren(undefined);
                   }}
                 >
                   Valider
