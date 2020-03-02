@@ -14,7 +14,7 @@ import Header from "./containers/Header";
 import Home from "./components/Home";
 import InfoWeeding from "./components/InfoWeeding";
 import InvitWeeding from "./components/InvitWeeding";
-import AdminWeeding from "./components/Admin";
+import AdminWeeding from "./components/ListInvit_Admin";
 import HomeAdminWeeding from "./components/Home_Admin";
 import AddChildrenAllowed from "./components/Children_Admin";
 import ValidInvit from "./components/ValidInvit";

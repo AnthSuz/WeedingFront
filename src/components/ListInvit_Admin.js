@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-const Admin = () => {
+
+import BackHomeAdmin from "../containers/BackHomeAdmin";
+
+const ListInvitAdmin = () => {
   const [invite, setInvite] = useState([]);
 
   const fetchData = async () => {
@@ -19,6 +22,7 @@ const Admin = () => {
 
   return (
     <>
+      <BackHomeAdmin />
       <div className="arrayAdmin">
         {invite.map((listInvite, index) => {
           return (
@@ -75,4 +79,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default ListInvitAdmin;

@@ -354,6 +354,7 @@ input[type="radio"]:checked:after {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 50px 0;
 }
 
 .response {
@@ -388,6 +389,34 @@ input[type="radio"]:checked:after {
   align-items: center;
 }
 
+.ChildrenAdmin button {
+  margin-top: 10px;
+}
+
+.ChildrenAdmin h4 {
+  margin-bottom: 0;
+}
+
+.listChildren {
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; */
+  margin: 0 auto;
+  width: 200px;
+  height: 100px;
+}
+
+.listChildrenInside {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  max-width: 200px;
+}
+
+.listChildrenInside p {
+  margin-bottom: 0;
+}
 /* --- VALID INVIT --- */
 .validInvit {
   display: flex;

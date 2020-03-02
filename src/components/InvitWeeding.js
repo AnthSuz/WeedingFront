@@ -182,6 +182,78 @@ const InvitWeeding = () => {
     }
   };
 
+  function childrenAllowedOne() {
+    if (numberPhone === undefined || numberPhone.length < 10) {
+      setResponseError({
+        status: true,
+        message: "Merci de renseigner votre numéro de téléphone"
+      });
+    } else if (nbOfAdult === undefined) {
+      setResponseError({
+        status: true,
+        message: "Merci de renseigner le nombre d'adulte"
+      });
+    } else if (nbOfChildren === undefined) {
+      setResponseError({
+        status: true,
+        message: "Merci de renseigner le nombre d'enfant"
+      });
+    } else {
+      fetchData();
+      // alert("OOOK");
+      history.push("/Valid_Invit");
+      setPresence(null);
+      setName("");
+      setFirstname("");
+      setNumberPhone(undefined);
+      setNbOfAdult(undefined);
+      setNbOfChildren(undefined);
+    }
+  }
+
+  function childrenAllowedTwo() {
+    if (numberPhone === undefined || numberPhone.length < 10) {
+      setResponseError({
+        status: true,
+        message: "Merci de renseigner votre numéro de téléphone"
+      });
+    } else if (nbOfAdult === undefined) {
+      setResponseError({
+        status: true,
+        message: "Merci de renseigner le nombre d'adulte"
+      });
+    } else {
+      fetchData();
+      // alert("OOOK");
+      history.push("/Valid_Invit");
+      setPresence(null);
+      setName("");
+      setFirstname("");
+      setNumberPhone(undefined);
+      setNbOfAdult(undefined);
+    }
+  }
+
+  function responseNo() {
+    if (name.length < 2) {
+      setResponseError({
+        status: true,
+        message: "Merci de renseigner votre nom"
+      });
+    } else if (firstname.length < 2) {
+      setResponseError({
+        status: true,
+        message: "Merci de renseigner votre prénom"
+      });
+    } else {
+      fetchData();
+      // alert("OOOK");
+      history.push("/Valid_Invit");
+      setName("");
+      setFirstname("");
+    }
+  }
+
   useEffect(() => {
     {
       allowedChildren();
@@ -294,32 +366,7 @@ const InvitWeeding = () => {
                 <button
                   className="inputValid"
                   onClick={() => {
-                    if (numberPhone === undefined || numberPhone.length < 10) {
-                      setResponseError({
-                        status: true,
-                        message: "Merci de renseigner votre numéro de téléphone"
-                      });
-                    } else if (nbOfAdult === undefined) {
-                      setResponseError({
-                        status: true,
-                        message: "Merci de renseigner le nombre d'adulte"
-                      });
-                    } else if (nbOfChildren === undefined) {
-                      setResponseError({
-                        status: true,
-                        message: "Merci de renseigner le nombre d'enfant"
-                      });
-                    } else {
-                      fetchData();
-                      // alert("OOOK");
-                      history.push("/Valid_Invit");
-                      setPresence(null);
-                      setName("");
-                      setFirstname("");
-                      setNumberPhone(undefined);
-                      setNbOfAdult(undefined);
-                      setNbOfChildren(undefined);
-                    }
+                    childrenAllowedOne();
                   }}
                 >
                   Valider
@@ -345,26 +392,7 @@ const InvitWeeding = () => {
                 <button
                   className="inputValid"
                   onClick={() => {
-                    if (numberPhone === undefined || numberPhone.length < 10) {
-                      setResponseError({
-                        status: true,
-                        message: "Merci de renseigner votre numéro de téléphone"
-                      });
-                    } else if (nbOfAdult === undefined) {
-                      setResponseError({
-                        status: true,
-                        message: "Merci de renseigner le nombre d'adulte"
-                      });
-                    } else {
-                      fetchData();
-                      // alert("OOOK");
-                      history.push("/Valid_Invit");
-                      setPresence(null);
-                      setName("");
-                      setFirstname("");
-                      setNumberPhone(undefined);
-                      setNbOfAdult(undefined);
-                    }
+                    childrenAllowedTwo();
                   }}
                 >
                   Valider
@@ -401,23 +429,7 @@ const InvitWeeding = () => {
               <button
                 className="inputValid"
                 onClick={() => {
-                  if (name.length < 2) {
-                    setResponseError({
-                      status: true,
-                      message: "Merci de renseigner votre nom"
-                    });
-                  } else if (firstname.length < 2) {
-                    setResponseError({
-                      status: true,
-                      message: "Merci de renseigner votre prénom"
-                    });
-                  } else {
-                    fetchData();
-                    // alert("OOOK");
-                    history.push("/Valid_Invit");
-                    setName("");
-                    setFirstname("");
-                  }
+                  responseNo();
                 }}
               >
                 Valider

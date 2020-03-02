@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+import BackHomeAdmin from "../containers/BackHomeAdmin";
 const Children_Admin = () => {
   const [children, setChildren] = useState(undefined);
+  const [listChildrenAllowed, setListChildrenAllowed] = useState([]);
   const [name, setName] = useState("");
   const [firstname, setFirstname] = useState("");
+  const [responseCreateChildren, setResponseCreateChildren] = useState({
+    status: false,
+    message: ""
+  });
 
   const nameChange = event => {
     const value = event.target.value;
@@ -16,7 +22,7 @@ const Children_Admin = () => {
     setFirstname(value);
   };
 
-  const fetchData = async () => {
+  const CreateChildrenData = async () => {
     try {
       const response = await axios.post(
         "http://localhost:3010/createchildren",
@@ -32,8 +38,51 @@ const Children_Admin = () => {
     }
   };
 
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:3010/readlistchildren"
+      );
+      setListChildrenAllowed(response.data);
+      console.log("fetchData", response.data);
+    } catch (error) {
+      console.log("error");
+    }
+  };
+
+  const removeData = async id => {
+    try {
+      const response = await axios.post("http://localhost:3010/delete/" + id);
+    } catch (error) {
+      console.log("error");
+    }
+  };
+
+  function CreateChildren() {
+    if (name.length <= 0) {
+      setResponseCreateChildren({
+        status: true,
+        message: "Merci d'entrer un nom"
+      });
+    } else if (firstname.length <= 0) {
+      setResponseCreateChildren({
+        status: true,
+        message: "Merci d'entrer un prénom"
+      });
+    } else {
+      CreateChildrenData();
+      // alert("Autorisation ajoutée.");
+      setName("");
+      setFirstname("");
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <>
+      <BackHomeAdmin />
       <div className="ChildrenAdmin">
         <p>Ajoutez içi les gens invité.e.s avec leur enfants. </p>
         <p>NOM</p>
@@ -45,17 +94,40 @@ const Children_Admin = () => {
           onChange={firstnameChange}
           type="text"
         />
-        <p> </p>
+        {responseCreateChildren.status && (
+          <h4>{responseCreateChildren.message}</h4>
+        )}
         <button
           onClick={() => {
-            fetchData();
-            alert("Autorisation ajoutée.");
-            setName("");
-            setFirstname("");
+            CreateChildren();
           }}
         >
           Valider
         </button>
+        <h4>Liste des personnes invitées avec leur enfants</h4>
+      </div>
+      <div className="listChildren">
+        {listChildrenAllowed.map((item, index) => {
+          return (
+            <>
+              <div className="listChildrenInside">
+                <p>
+                  {item.firstname} {item.name}{" "}
+                </p>
+                <button
+                  onClick={() => {
+                    removeData(item._id);
+                    const newListTemp = [...listChildrenAllowed];
+                    newListTemp.splice(index, 1);
+                    setListChildrenAllowed(newListTemp);
+                  }}
+                >
+                  X
+                </button>
+              </div>
+            </>
+          );
+        })}
       </div>
     </>
   );
