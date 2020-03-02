@@ -3,6 +3,10 @@ a {
   color: black;
 }
 
+button {
+  outline: none;
+}
+
 p {
   font-family: "Roboto";
 }
@@ -163,6 +167,7 @@ tr {
 
 .yes label {
   margin: 10px;
+  cursor: pointer;
 }
 
 .no {
@@ -172,6 +177,7 @@ tr {
 
 .no label {
   margin: 10px;
+  cursor: pointer;
 }
 
 .inputTxt {
@@ -186,7 +192,7 @@ tr {
 }
 
 .inputValid {
-  margin: 30px 0;
+  margin-top: 20px;
   background-color: #d2d3d1;
   border: none;
   height: 30px;
@@ -218,6 +224,7 @@ input[type="radio"]:after {
   display: inline-block;
   visibility: visible;
   border: 2px solid white;
+  cursor: pointer;
 }
 
 input[type="radio"]:checked:after {
@@ -244,6 +251,14 @@ input[type="radio"]:checked:after {
 .condChildren {
   font-size: 13px;
   font-style: italic;
+}
+
+.responseError {
+  color: red;
+  margin: 0 0;
+  padding-top: 10px;
+  font-size: 14px;
+  font-weight: 300;
 }
 
 /* --- INFO WEEDING --- */
@@ -371,4 +386,34 @@ input[type="radio"]:checked:after {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+}
+
+/* --- VALID INVIT --- */
+.validInvit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 20px;
+  max-width: 780px;
+  margin: auto;
+  margin-top: 20px;
+  background-color: rgba(251, 220, 218, 0.5);
+}
+
+.validInvit p {
+  margin: 5px;
+  font-weight: 300;
+  font-size: 19px;
+}
+
+.validInvit button {
+  height: 30px;
+  width: 780px;
+  margin-top: 20px;
+  background-color: #d2d3d1;
+  border: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
 }

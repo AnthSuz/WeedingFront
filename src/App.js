@@ -17,6 +17,7 @@ import InvitWeeding from "./components/InvitWeeding";
 import AdminWeeding from "./components/Admin";
 import HomeAdminWeeding from "./components/Home_Admin";
 import AddChildrenAllowed from "./components/Children_Admin";
+import ValidInvit from "./components/ValidInvit";
 
 function App() {
   return (
@@ -44,6 +45,9 @@ function App() {
           </Route>
           <Route path="/Admin_Children">
             <AddChildrenAllowed />
+          </Route>
+          <Route path="/Valid_Invit">
+            <ValidInvit />
           </Route>
         </Switch>
       </Router>

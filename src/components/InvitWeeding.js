@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 import BackHome from "../containers/BackHome";
 
@@ -13,6 +14,11 @@ const InvitWeeding = () => {
   const [guest, setGuest] = useState(undefined);
   const [childrenAllowed, setChildrenAllowed] = useState();
   const [childrenOk, setChildrenOk] = useState();
+  const [responseError, setResponseError] = useState({
+    status: false,
+    message: ""
+  });
+  const history = useHistory();
 
   const presenceChange = event => {
     const value = event.target.value;
@@ -282,21 +288,43 @@ const InvitWeeding = () => {
                   className="inputTxt"
                 />
                 <br />
+                {responseError.status && (
+                  <p className="responseError">{responseError.message}</p>
+                )}
                 <button
                   className="inputValid"
                   onClick={() => {
-                    fetchData();
-                    alert("OOOK");
-                    setPresence(null);
-                    setName("");
-                    setFirstname("");
-                    setNumberPhone(undefined);
-                    setNbOfAdult(undefined);
-                    setNbOfChildren(undefined);
+                    if (numberPhone === undefined || numberPhone.length < 10) {
+                      setResponseError({
+                        status: true,
+                        message: "Merci de renseigner votre numéro de téléphone"
+                      });
+                    } else if (nbOfAdult === undefined) {
+                      setResponseError({
+                        status: true,
+                        message: "Merci de renseigner le nombre d'adulte"
+                      });
+                    } else if (nbOfChildren === undefined) {
+                      setResponseError({
+                        status: true,
+                        message: "Merci de renseigner le nombre d'enfant"
+                      });
+                    } else {
+                      fetchData();
+                      // alert("OOOK");
+                      history.push("/Valid_Invit");
+                      setPresence(null);
+                      setName("");
+                      setFirstname("");
+                      setNumberPhone(undefined);
+                      setNbOfAdult(undefined);
+                      setNbOfChildren(undefined);
+                    }
                   }}
                 >
                   Valider
-                </button>{" "}
+                </button>
+                )}
               </>
             ) : // S'ils ne sont pas invités avec leur enfant on leur demande uniquement le nombre d'adulte
             childrenAllowed === 2 ? (
@@ -311,16 +339,36 @@ const InvitWeeding = () => {
                   className="inputTxt"
                 />
                 <br />
+                {responseError.status && (
+                  <p className="responseError">{responseError.message}</p>
+                )}
                 <button
                   className="inputValid"
                   onClick={() => {
-                    fetchData();
-                    alert("OOOK");
-                    setName("");
+                    if (numberPhone === undefined || numberPhone.length < 10) {
+                      setResponseError({
+                        status: true,
+                        message: "Merci de renseigner votre numéro de téléphone"
+                      });
+                    } else if (nbOfAdult === undefined) {
+                      setResponseError({
+                        status: true,
+                        message: "Merci de renseigner le nombre d'adulte"
+                      });
+                    } else {
+                      fetchData();
+                      // alert("OOOK");
+                      history.push("/Valid_Invit");
+                      setPresence(null);
+                      setName("");
+                      setFirstname("");
+                      setNumberPhone(undefined);
+                      setNbOfAdult(undefined);
+                    }
                   }}
                 >
                   Valider
-                </button>{" "}
+                </button>
               </>
             ) : // Si les champs sont vide, on leur propose rien
             null}
@@ -347,12 +395,29 @@ const InvitWeeding = () => {
                 onChange={firstnameChange}
                 className="inputTxt"
               />
+              {responseError.status && (
+                <p className="responseError">{responseError.message}</p>
+              )}
               <button
                 className="inputValid"
                 onClick={() => {
-                  fetchData();
-                  alert("OOOK");
-                  setName("");
+                  if (name.length < 2) {
+                    setResponseError({
+                      status: true,
+                      message: "Merci de renseigner votre nom"
+                    });
+                  } else if (firstname.length < 2) {
+                    setResponseError({
+                      status: true,
+                      message: "Merci de renseigner votre prénom"
+                    });
+                  } else {
+                    fetchData();
+                    // alert("OOOK");
+                    history.push("/Valid_Invit");
+                    setName("");
+                    setFirstname("");
+                  }
                 }}
               >
                 Valider
