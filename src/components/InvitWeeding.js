@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
@@ -50,7 +50,7 @@ const InvitWeeding = () => {
     setNbOfChildren(value);
   };
 
-  const fetchData = async () => {
+  const createData = async () => {
     try {
       const response = await axios.post("http://localhost:3010/createguest/", {
         presence: presence,
@@ -199,7 +199,7 @@ const InvitWeeding = () => {
         message: "Merci de renseigner le nombre d'enfant"
       });
     } else {
-      fetchData();
+      createData();
       // alert("OOOK");
       history.push("/Valid_Invit");
       setPresence(null);
@@ -223,7 +223,7 @@ const InvitWeeding = () => {
         message: "Merci de renseigner le nombre d'adulte"
       });
     } else {
-      fetchData();
+      createData();
       // alert("OOOK");
       history.push("/Valid_Invit");
       setPresence(null);
@@ -246,7 +246,7 @@ const InvitWeeding = () => {
         message: "Merci de renseigner votre prénom"
       });
     } else {
-      fetchData();
+      createData();
       // alert("OOOK");
       history.push("/Valid_Invit");
       setName("");
@@ -264,7 +264,7 @@ const InvitWeeding = () => {
   console.log("children", childrenAllowed);
   return (
     <>
-      <BackHome />
+      <BackHome back="/Home" where="l'acceuil" />
       <div className="invitWeeding">
         <p className="titleInvitWeeding">
           Veuillez répondre ci-dessous à l'invitation au mariage
@@ -371,7 +371,6 @@ const InvitWeeding = () => {
                 >
                   Valider
                 </button>
-                )}
               </>
             ) : // S'ils ne sont pas invités avec leur enfant on leur demande uniquement le nombre d'adulte
             childrenAllowed === 2 ? (
@@ -443,4 +442,5 @@ const InvitWeeding = () => {
   );
 };
 
+export const Test = React.createContext(null);
 export default InvitWeeding;

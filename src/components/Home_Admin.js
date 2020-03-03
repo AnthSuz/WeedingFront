@@ -5,7 +5,7 @@ const Home_Admin = () => {
   return (
     <>
       <p>Page d'administration du mariage.</p>
-      <Link to="/Admin_Weeding">
+      <Link to="/ListInvit_Admin">
         <p>Voir les réponses</p>
       </Link>
       <Link to="/Admin_Children">

@@ -8,7 +8,7 @@ import BackHome from "../containers/BackHome";
 const InfoWeeding = () => {
   return (
     <>
-      <BackHome />
+      <BackHome back="/Home" where="l'acceuil" />
       <div className="infoWeeding">
         <div className="mairie">
           <p>

@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const BackHome = () => {
+const BackHome = props => {
   return (
     <>
-      <Link to="/Home">
+      <Link to={props.back}>
         <div className="backHome">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +19,7 @@ const BackHome = () => {
           >
             <path d="M19 12H6M12 5l-7 7 7 7" />
           </svg>
-          <p className="backHome"> Retour à l'accueil </p>
+          <p className="backHome"> Retour à {props.where} </p>
         </div>
       </Link>
     </>

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import BackHomeAdmin from "../containers/BackHomeAdmin";
+import BackHome from "../containers/BackHome";
 const Children_Admin = () => {
-  const [children, setChildren] = useState(undefined);
   const [listChildrenAllowed, setListChildrenAllowed] = useState([]);
   const [name, setName] = useState("");
   const [firstname, setFirstname] = useState("");
@@ -24,15 +23,13 @@ const Children_Admin = () => {
 
   const CreateChildrenData = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:3010/createchildren",
-        {
-          firstname: firstname,
-          name: name
-        }
-      );
-      setChildren(response.data);
-      console.log("children", children);
+      await axios.post("http://localhost:3010/createchildren", {
+        firstname: firstname,
+        name: name
+      });
+      const newListChildrenAllowed = [...listChildrenAllowed];
+      newListChildrenAllowed.push({ firstname, name });
+      setListChildrenAllowed(newListChildrenAllowed);
     } catch (error) {
       console.log("error");
     }
@@ -52,7 +49,7 @@ const Children_Admin = () => {
 
   const removeData = async id => {
     try {
-      const response = await axios.post("http://localhost:3010/delete/" + id);
+      await axios.post("http://localhost:3010/children/delete/" + id);
     } catch (error) {
       console.log("error");
     }
@@ -71,7 +68,6 @@ const Children_Admin = () => {
       });
     } else {
       CreateChildrenData();
-      // alert("Autorisation ajoutée.");
       setName("");
       setFirstname("");
     }
@@ -82,9 +78,9 @@ const Children_Admin = () => {
   }, []);
   return (
     <>
-      <BackHomeAdmin />
+      <BackHome back="/Admin_Home" where="l'acceuil admin" />
       <div className="ChildrenAdmin">
-        <p>Ajoutez içi les gens invité.e.s avec leur enfants. </p>
+        <p>Ajoutez içi les gens invité.e.s avec leurs enfants. </p>
         <p>NOM</p>
         <input name="name" value={name} onChange={nameChange} type="text" />
         <p>PRENOM</p>
@@ -104,7 +100,7 @@ const Children_Admin = () => {
         >
           Valider
         </button>
-        <h4>Liste des personnes invitées avec leur enfants</h4>
+        <h4>Liste des personnes invitées avec leurs enfants</h4>
       </div>
       <div className="listChildren">
         {listChildrenAllowed.map((item, index) => {

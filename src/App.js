@@ -18,6 +18,7 @@ import AdminWeeding from "./components/ListInvit_Admin";
 import HomeAdminWeeding from "./components/Home_Admin";
 import AddChildrenAllowed from "./components/Children_Admin";
 import ValidInvit from "./components/ValidInvit";
+import AdminWeedingById from "./components/AdminWeedingById";
 
 function App() {
   return (
@@ -37,8 +38,11 @@ function App() {
           <Route path="/Invit_Weeding">
             <InvitWeeding />
           </Route>
-          <Route path="/Admin_Weeding">
+          <Route path="/ListInvit_Admin">
             <AdminWeeding />
+          </Route>
+          <Route path="/ListInvit/:id" component={AdminWeedingById}>
+            {/* <AdminWeedingById /> */}
           </Route>
           <Route path="/Admin_Home">
             <HomeAdminWeeding />
