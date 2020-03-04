@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useHistory, useParams } from "react-router-dom";
+
 import BackHome from "../containers/BackHome";
 
 function AdminWeedingById(props) {
@@ -11,10 +13,14 @@ function AdminWeedingById(props) {
   const [numberPhone, setNumberPhone] = useState(undefined);
   const [nbOfAdult, setNbOfAdult] = useState(undefined);
   const [nbOfChildren, setNbOfChildren] = useState(undefined);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
-  const id = props.match.params.id;
-
-  console.log("props", props.match.params.id);
+  const params = useParams();
+  const id = params.id;
+  const history = useHistory();
+  const invite = props.invite;
+  const setInvite = props.setInvite;
+  console.log("invite", props.invite);
 
   const fetchData = async () => {
     try {
@@ -30,7 +36,6 @@ function AdminWeedingById(props) {
       setNbOfChildren(response.data.numberChildren);
 
       setIsLoading(false);
-      console.log(response.data);
     } catch (error) {
       console.log(error.message);
     }
@@ -58,6 +63,14 @@ function AdminWeedingById(props) {
       );
     } catch (error) {
       console.log(error.message);
+    }
+  };
+
+  const removeData = async () => {
+    try {
+      await axios.post("http://localhost:3010/guest/delete/" + id);
+    } catch (error) {
+      console.log("error");
     }
   };
 
@@ -180,6 +193,39 @@ function AdminWeedingById(props) {
                     >
                       VALIDER
                     </button>
+                    <button
+                      onClick={event => {
+                        event.preventDefault();
+                        setConfirmDelete(true);
+                      }}
+                    >
+                      SUPPRIMER
+                    </button>
+                    {confirmDelete && (
+                      <>
+                        <p>
+                          Etes vous sur de vouloir supprimer cette reservation ?
+                        </p>
+                        <button
+                          onClick={() => {
+                            removeData();
+                            const newListInvit = [...invite];
+                            newListInvit.filter(item => item._id !== id);
+                            setInvite(newListInvit);
+                            history.push("/ListInvit_Admin");
+                          }}
+                        >
+                          OUI
+                        </button>
+                        <button
+                          onClick={() => {
+                            setConfirmDelete(false);
+                          }}
+                        >
+                          NON
+                        </button>
+                      </>
+                    )}
                   </div>
                 </>
               ) : (
@@ -192,6 +238,40 @@ function AdminWeedingById(props) {
                   >
                     VALIDER
                   </button>
+                  <button
+                    onClick={event => {
+                      event.preventDefault();
+                      setConfirmDelete(true);
+                    }}
+                  >
+                    SUPPRIMER
+                  </button>
+                  {confirmDelete && (
+                    <>
+                      <p>
+                        Etes vous sur de vouloir supprimer cette reservation ?
+                      </p>
+                      <button
+                        onClick={() => {
+                          removeData();
+                          const newListInvit = [...invite];
+                          newListInvit.filter(item => item._id !== id);
+                          setInvite(newListInvit);
+
+                          history.push("/ListInvit_Admin");
+                        }}
+                      >
+                        OUI
+                      </button>
+                      <button
+                        onClick={() => {
+                          setConfirmDelete(false);
+                        }}
+                      >
+                        NON
+                      </button>
+                    </>
+                  )}
                 </>
               )}
             </form>

@@ -383,6 +383,7 @@ input[type="radio"]:checked:after {
 .adminWeedingById form {
   border: 2px solid #fdbab4;
   padding: 10px;
+  text-align: center;
 }
 
 .buttonValid {

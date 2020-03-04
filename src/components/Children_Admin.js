@@ -23,12 +23,16 @@ const Children_Admin = () => {
 
   const CreateChildrenData = async () => {
     try {
-      await axios.post("http://localhost:3010/createchildren", {
-        firstname: firstname,
-        name: name
-      });
+      const response = await axios.post(
+        "http://localhost:3010/createchildren",
+        {
+          firstname: firstname,
+          name: name
+        }
+      );
+      const id = response.data._id;
       const newListChildrenAllowed = [...listChildrenAllowed];
-      newListChildrenAllowed.push({ firstname, name });
+      newListChildrenAllowed.push({ _id: id, firstname, name });
       setListChildrenAllowed(newListChildrenAllowed);
     } catch (error) {
       console.log("error");
@@ -50,6 +54,7 @@ const Children_Admin = () => {
   const removeData = async id => {
     try {
       await axios.post("http://localhost:3010/children/delete/" + id);
+      console.log("here");
     } catch (error) {
       console.log("error");
     }

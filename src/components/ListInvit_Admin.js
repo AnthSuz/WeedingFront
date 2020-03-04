@@ -4,17 +4,18 @@ import axios from "axios";
 
 import BackHome from "../containers/BackHome";
 
-const ListInvitAdmin = () => {
-  const [invite, setInvite] = useState([]);
+const ListInvitAdmin = props => {
   const [filterInvite, setFilterInvite] = useState([]);
   const [name, setName] = useState("");
+
+  const invite = props.invite;
+  const setInvite = props.setInvite;
 
   const fetchData = async () => {
     try {
       const response = await axios.get("http://localhost:3010/readlistguest");
       setInvite(response.data);
       setFilterInvite(response.data);
-      console.log("here", response.data);
     } catch (error) {
       console.log(error.message);
     }
