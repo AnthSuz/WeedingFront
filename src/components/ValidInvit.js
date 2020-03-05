@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
-const ValidInvit = () => {
+function ValidInvit() {
   return (
     <div className="validInvit">
       <p>Merci pour votre réponse !</p>
@@ -18,6 +18,6 @@ const ValidInvit = () => {
       </Link>
     </div>
   );
-};
+}
 
 export default ValidInvit;

@@ -3,10 +3,15 @@ import axios from "axios";
 import { useHistory, useParams } from "react-router-dom";
 
 import BackHome from "../containers/BackHome";
+import Input from "../containers/Input";
+
+import * as inputParams from "../containers/inputParams";
 
 function AdminWeedingById(props) {
+  const history = useHistory();
+  const params = useParams();
   const [isLoading, setIsLoading] = useState(true);
-  const [response, setResponse] = useState();
+  const [editResponse, setEditResponse] = useState(false);
   const [presence, setPresence] = useState(null);
   const [name, setName] = useState("");
   const [firstname, setFirstname] = useState("");
@@ -15,26 +20,21 @@ function AdminWeedingById(props) {
   const [nbOfChildren, setNbOfChildren] = useState(undefined);
   const [confirmDelete, setConfirmDelete] = useState(false);
 
-  const params = useParams();
   const id = params.id;
-  const history = useHistory();
   const invite = props.invite;
   const setInvite = props.setInvite;
-  console.log("invite", props.invite);
 
   const fetchData = async () => {
     try {
       const response = await axios.get(
         "http://localhost:3010/readlistguest/" + id
       );
-      setResponse(response.data);
       setPresence(response.data.presence);
       setName(response.data.name);
       setFirstname(response.data.firstname);
       setNumberPhone(response.data.numberPhone);
       setNbOfAdult(response.data.numberAdult);
       setNbOfChildren(response.data.numberChildren);
-
       setIsLoading(false);
     } catch (error) {
       console.log(error.message);
@@ -57,10 +57,7 @@ function AdminWeedingById(props) {
         body.numberAdult = undefined;
         body.numberChildren = undefined;
       }
-      const response = await axios.post(
-        "http://localhost:3010/listguest/update/",
-        body
-      );
+      await axios.post("http://localhost:3010/listguest/update/", body);
     } catch (error) {
       console.log(error.message);
     }
@@ -74,38 +71,6 @@ function AdminWeedingById(props) {
     }
   };
 
-  const presenceChange = event => {
-    const value = event.target.value;
-    setPresence(value);
-  };
-
-  const nameChange = event => {
-    const value = event.target.value;
-    setName(value);
-  };
-
-  const firstnameChange = event => {
-    const value = event.target.value;
-    setFirstname(value);
-  };
-
-  const numberPhoneChange = event => {
-    const value = String(event.target.value);
-    setNumberPhone(value);
-  };
-
-  const nbOfAdultChange = event => {
-    const value = event.target.value;
-    setNbOfAdult(value);
-  };
-
-  const nbOfChildrenChange = event => {
-    const value = event.target.value;
-    setNbOfChildren(value);
-  };
-
-  console.log("state", response);
-
   useEffect(() => {
     fetchData();
   }, []);
@@ -118,162 +83,112 @@ function AdminWeedingById(props) {
         <>
           <BackHome back="/ListInvit_Admin" where="la liste des réponses" />
           <div className="adminWeedingById">
+            {editResponse === true && <p>Reservation modifié</p>}
             <form>
-              <p>NOM</p>
-              <input
-                type="text"
-                name="name"
+              <Input
+                inputParams={inputParams.Name}
                 value={name}
-                onChange={nameChange}
+                onChange={e => setName(e.target.value)}
               />
-              <p>PRENOM</p>
-              <input
-                type="text"
-                name="firstname"
+              <Input
+                inputParams={inputParams.Firstname}
                 value={firstname}
-                onChange={firstnameChange}
+                onChange={e => setFirstname(e.target.value)}
               />
               <p>PRESENCE</p>
               <div className="yesorno">
                 <div className="yes">
-                  <label for="Oui">OUI</label>
+                  <label htmlFor="Oui">OUI</label>
                   <input
                     id="Oui"
                     type="radio"
                     name="Oui"
                     value="Oui"
-                    onChange={presenceChange}
+                    onChange={e => setPresence(e.target.value)}
                     checked={presence === "Oui" ? true : false}
                     className="inputRadio"
                   />
                 </div>
                 <div className="no">
-                  <label for="Non">NON</label>
+                  <label htmlFor="Non">NON</label>
                   <input
                     id="Non"
                     type="radio"
                     name="Non"
                     value="Non"
-                    onChange={presenceChange}
+                    onChange={e => setPresence(e.target.value)}
                     checked={presence === "Non" ? true : false}
                     className="inputRadio"
                   />
                 </div>
               </div>
-              {presence === "Oui" ? (
+              {presence === "Oui" && (
                 <>
-                  <p>NUMERO TEL.</p>
-                  <input
-                    type="text"
-                    name="numberPhone"
+                  <Input
+                    inputParams={inputParams.Phone}
                     value={numberPhone}
-                    onChange={numberPhoneChange}
+                    onChange={e => setNumberPhone(e.target.value)}
                   />
-                  <p>NOMBRE ADULTE</p>
-                  <input
-                    type="number"
-                    name="numberAdult"
+                  <Input
+                    inputParams={inputParams.Adult}
                     value={nbOfAdult}
-                    onChange={nbOfAdultChange}
+                    onChange={e => setNbOfAdult(e.target.value)}
                   />
                   <p>NOMBRE ENFANT</p>
-                  <input
-                    type="number"
-                    name="numberChildren"
+                  <Input
+                    inputParams={inputParams.Children}
                     value={nbOfChildren}
-                    onChange={nbOfChildrenChange}
+                    onChange={e => setNbOfChildren(e.target.value)}
                   />
                   <br />
-                  <div className="buttonValid">
-                    <button
-                      onClick={event => {
-                        event.preventDefault();
-                        updateData();
-                      }}
-                    >
-                      VALIDER
-                    </button>
-                    <button
-                      onClick={event => {
-                        event.preventDefault();
-                        setConfirmDelete(true);
-                      }}
-                    >
-                      SUPPRIMER
-                    </button>
-                    {confirmDelete && (
-                      <>
-                        <p>
-                          Etes vous sur de vouloir supprimer cette reservation ?
-                        </p>
-                        <button
-                          onClick={() => {
-                            removeData();
-                            const newListInvit = [...invite];
-                            newListInvit.filter(item => item._id !== id);
-                            setInvite(newListInvit);
-                            history.push("/ListInvit_Admin");
-                          }}
-                        >
-                          OUI
-                        </button>
-                        <button
-                          onClick={() => {
-                            setConfirmDelete(false);
-                          }}
-                        >
-                          NON
-                        </button>
-                      </>
-                    )}
-                  </div>
-                </>
-              ) : (
-                <>
-                  <button
-                    onClick={event => {
-                      event.preventDefault();
-                      updateData();
-                    }}
-                  >
-                    VALIDER
-                  </button>
-                  <button
-                    onClick={event => {
-                      event.preventDefault();
-                      setConfirmDelete(true);
-                    }}
-                  >
-                    SUPPRIMER
-                  </button>
-                  {confirmDelete && (
-                    <>
-                      <p>
-                        Etes vous sur de vouloir supprimer cette reservation ?
-                      </p>
-                      <button
-                        onClick={() => {
-                          removeData();
-                          const newListInvit = [...invite];
-                          newListInvit.filter(item => item._id !== id);
-                          setInvite(newListInvit);
-
-                          history.push("/ListInvit_Admin");
-                        }}
-                      >
-                        OUI
-                      </button>
-                      <button
-                        onClick={() => {
-                          setConfirmDelete(false);
-                        }}
-                      >
-                        NON
-                      </button>
-                    </>
-                  )}
                 </>
               )}
+              <>
+                <br />
+                <button
+                  onClick={event => {
+                    event.preventDefault();
+                    setEditResponse(true);
+                    updateData();
+                  }}
+                >
+                  VALIDER
+                </button>
+                <button
+                  onClick={event => {
+                    event.preventDefault();
+                    setConfirmDelete(true);
+                  }}
+                >
+                  SUPPRIMER
+                </button>
+                {confirmDelete && (
+                  <>
+                    <p>
+                      Etes vous sur de vouloir supprimer cette reservation ?
+                    </p>
+                    <button
+                      onClick={() => {
+                        removeData();
+                        const newListInvit = [...invite];
+                        newListInvit.filter(item => item._id !== id);
+                        setInvite(newListInvit);
+
+                        history.push("/ListInvit_Admin");
+                      }}
+                    >
+                      OUI
+                    </button>
+                    <button
+                      onClick={() => {
+                        setConfirmDelete(false);
+                      }}
+                    >
+                      NON
+                    </button>
+                  </>
+                )}
+              </>
             </form>
           </div>
         </>

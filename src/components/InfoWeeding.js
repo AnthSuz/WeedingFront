@@ -13,7 +13,7 @@ const InfoWeeding = () => {
         <div className="mairie">
           <p>
             Leah & Donovan <br /> se diront OUI sous vos yeux lors de leur union
-            civile <br /> le Lundi 7 Septembre 2020 à 14H30 <br /> à la Mairie
+            civile <br /> le Lundi 7 Septembre 2020 à 14H15 <br /> à la Mairie
             de Gambetta <br />6 Place Gambetta 75020 Paris
           </p>
           <img src={Mairie} alt="Marie du 20em arrondissement" />

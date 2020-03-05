@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-const AuthAdmin = props => {
+import Input from "../containers/Input";
+import * as inputParams from "../containers/inputParams";
+
+function LoginAdmin(props) {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,7 +44,6 @@ const AuthAdmin = props => {
           { headers: { Accept: "application/json" } }
         );
         const result = response.data;
-        console.log("response.data", response.data);
         if (result && result.token) {
           Cookies.set("token", result.token, { expires: 1 });
           props.setToken(result.token);
@@ -52,7 +54,6 @@ const AuthAdmin = props => {
         }
       } catch (error) {
         console.log(error.message);
-        console.log("here");
         setError("Mot de passe incorrect");
       }
     }
@@ -67,25 +68,22 @@ const AuthAdmin = props => {
           getLogin();
         }}
       >
-        <p>EMAIL</p>
-        <input
-          placeholder="Email"
-          type="text"
+        <Input
+          inputParams={inputParams.Email}
           value={email}
           onChange={e => setEmail(e.target.value)}
         />
-        <p>PASSWORD</p>
-        <input
-          placeholder="Mot de passe"
-          type="password"
+        <Input
+          inputParams={inputParams.Password}
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
+        <br />
         {isError && <p>{msgError}</p>}
         <input type="submit" value="Se connecter" />
       </form>
     </>
   );
-};
+}
 
-export default AuthAdmin;
+export default LoginAdmin;

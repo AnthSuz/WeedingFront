@@ -368,7 +368,7 @@ input[type="radio"]:checked:after {
   border-radius: 10px;
   padding-left: 10px;
   font-size: 15px;
-  text-transform: capitalize;
+  text-transform: uppercase;
   outline: none;
   background-color: #fdbab4;
 }
@@ -376,8 +376,7 @@ input[type="radio"]:checked:after {
 /* --- ADMIN LIST BY ID SCREEN --- */
 .adminWeedingById {
   margin: 0 auto;
-  max-width: 200px;
-  /* height: 200px; */
+  max-width: 290px;
 }
 
 .adminWeedingById form {

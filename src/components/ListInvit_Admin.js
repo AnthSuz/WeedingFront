@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+import Input from "../containers/Input";
+import * as inputParams from "../containers/inputParams";
+
 import BackHome from "../containers/BackHome";
 
 const ListInvitAdmin = props => {
@@ -35,10 +38,9 @@ const ListInvitAdmin = props => {
             fetchData();
           }}
         >
-          <input
-            type="text"
+          <Input
+            inputParams={inputParams.SearchName}
             value={name}
-            placeholder="Entrez le nom"
             onChange={event => {
               const searchName = event.target.value;
               setName(searchName);
@@ -51,21 +53,15 @@ const ListInvitAdmin = props => {
                   item.name.toUpperCase().includes(searchName.toUpperCase())
                 );
               }
-
-              console.log("filter", filter);
               setFilterInvite(filter);
             }}
-            className="searchName"
           />
         </form>
         {filterInvite.map((listInvite, index) => {
           return (
             <Link
               to={{
-                pathname: "/ListInvit/" + listInvite._id,
-                aboutProps: {
-                  name: "coucou"
-                }
+                pathname: "/ListInvit/" + listInvite._id
               }}
               key={index}
             >
@@ -77,7 +73,6 @@ const ListInvitAdmin = props => {
                   <p>Numéro de Tel. :</p>
                   <p>Nb Adulte :</p>
                   <p>Nb Enfant :</p>
-                  {/* <hr className="hrArray" /> */}
                 </div>
                 <div className="list">
                   <p>{listInvite.name === undefined ? "X" : listInvite.name}</p>
@@ -106,7 +101,6 @@ const ListInvitAdmin = props => {
                       ? "X"
                       : listInvite.numberChildren}
                   </p>
-                  {/* <hr className="hrArray" /> */}
                 </div>
               </div>
             </Link>
