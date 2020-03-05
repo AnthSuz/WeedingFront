@@ -23,25 +23,6 @@ hr {
   border: none;
 }
 
-td {
-  border: 1px solid black;
-  min-width: 130px;
-  height: 40px;
-  text-align: center;
-}
-
-table {
-  border-collapse: collapse;
-}
-
-tr {
-  text-transform: capitalize;
-}
-
-li {
-  list-style: none;
-}
-
 /* --- HEADER --- */
 
 .header {
@@ -58,7 +39,7 @@ li {
   font-weight: 600;
 }
 
-.nameWeeding p {
+.nameWeeding {
   word-spacing: 0.5rem;
 }
 
@@ -66,7 +47,7 @@ li {
   padding: 100px 0 20px 0;
 }
 
-/* --- BODY --- */
+/* --- HOME --- */
 
 .body {
   display: flex;
@@ -79,7 +60,14 @@ li {
   width: 100%;
 }
 
-/* --- BUTTON 1 --- */
+.button {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 66px 0;
+  background-color: #f6f6f6;
+  height: auto;
+}
+
 #button1 {
   background: url("./images/imgbutton1.jpg");
   width: 600px;
@@ -107,8 +95,6 @@ li {
   font-weight: 700;
   font-size: 25px;
 }
-
-/* --- BUTTON 2 --- */
 
 #button2 {
   background: url("./images/imgbutton2.jpg");
@@ -138,15 +124,6 @@ li {
   font-size: 25px;
 }
 
-/* --- BUTTON --- */
-.button {
-  display: flex;
-  justify-content: space-evenly;
-  padding: 66px 0;
-  background-color: #f6f6f6;
-  height: auto;
-}
-
 /* --- INVIT WEEDING --- */
 .invitWeeding {
   text-align: center;
@@ -158,6 +135,7 @@ li {
   font-weight: 600;
 }
 
+/* -> YES OR NO  */
 .yesorno {
   display: flex;
   align-items: center;
@@ -182,34 +160,6 @@ li {
 .no label {
   margin: 10px;
   cursor: pointer;
-}
-
-.inputTxt {
-  background-color: #fdbab4;
-  border: none;
-  border-radius: 10px;
-  outline: none;
-  height: 30px;
-  width: 200px;
-  padding-left: 10px;
-  text-transform: uppercase;
-}
-
-.inputValid {
-  margin-top: 20px;
-  background-color: #d2d3d1;
-  border: none;
-  height: 30px;
-  width: 150px;
-  border-radius: 10px;
-  text-transform: uppercase;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.inputValid:hover {
-  text-decoration: underline;
-  background-color: #dddddd;
 }
 
 .inputRadio {
@@ -244,17 +194,50 @@ input[type="radio"]:checked:after {
   visibility: visible;
   border: 2px solid white;
 }
+/* --- */
+
+/* -> INPUT */
+.inputTxt {
+  background-color: #fdbab4;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  height: 30px;
+  width: 200px;
+  padding-left: 10px;
+  text-transform: uppercase;
+}
+/* --- */
+
+/* -> VALID FORM */
+.inputValid {
+  margin-top: 20px;
+  background-color: #d2d3d1;
+  border: none;
+  height: 30px;
+  width: 150px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.inputValid:hover {
+  text-decoration: underline;
+  background-color: #dddddd;
+}
+
+/* --- */
+.condChildren {
+  font-size: 13px;
+  font-style: italic;
+}
 
 .responseNo {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-}
-
-.condChildren {
-  font-size: 13px;
-  font-style: italic;
 }
 
 .responseError {
@@ -267,27 +250,12 @@ input[type="radio"]:checked:after {
 
 /* --- INFO WEEDING --- */
 
-.backHome {
-  display: flex;
-  align-items: center;
-  margin-left: 50px;
-}
-
-.backHome p {
-  font-weight: 300;
-  margin: 10px;
-}
-
 .infoWeeding {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 10px;
   margin-bottom: 100px;
-}
-
-.couple {
-  font-style: italic;
 }
 
 .mairie {
@@ -339,7 +307,26 @@ input[type="radio"]:checked:after {
   width: 300px;
 }
 
+/* --- BACK HOME --- */
+.backHome {
+  display: flex;
+  align-items: center;
+  margin-left: 50px;
+}
+
+.backHome p {
+  font-weight: 300;
+  margin: 10px;
+}
+
 /* --- ADMIN LIST SCREEN ---  */
+.arrayAdmin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0;
+}
 
 .array {
   display: flex;
@@ -352,14 +339,7 @@ input[type="radio"]:checked:after {
   box-shadow: 0px 5px 10px #fdbab4;
 }
 
-.arrayAdmin {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 50px 0;
-}
-
+/* -> INPUT  */
 .searchName {
   height: 30px;
   width: 240px;
@@ -372,6 +352,7 @@ input[type="radio"]:checked:after {
   outline: none;
   background-color: #fdbab4;
 }
+/* --- */
 
 /* --- ADMIN LIST BY ID SCREEN --- */
 .adminWeedingById {
@@ -379,19 +360,11 @@ input[type="radio"]:checked:after {
   max-width: 290px;
 }
 
-.adminWeedingById form {
+.updateGuest {
   border: 2px solid #fdbab4;
   padding: 10px;
   text-align: center;
 }
-
-.buttonValid {
-  margin-top: 10px;
-}
-
-/* .adminWeedingById input[type="radio"] {
-  margin-right: 15px;
-} */
 
 /* --- ADMIN CHILDREN --- */
 
@@ -402,19 +375,11 @@ input[type="radio"]:checked:after {
   align-items: center;
 }
 
-.ChildrenAdmin button {
-  margin-top: 10px;
-}
-
 .ChildrenAdmin h4 {
   margin-bottom: 0;
 }
 
 .listChildren {
-  /* display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column; */
   margin: 0 auto;
   width: 200px;
   height: 100px;
@@ -429,7 +394,9 @@ input[type="radio"]:checked:after {
 
 .listChildrenInside p {
   margin-bottom: 0;
+  text-transform: uppercase;
 }
+
 /* --- VALID INVIT --- */
 .validInvit {
   display: flex;

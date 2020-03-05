@@ -6,16 +6,17 @@ import BackHome from "../containers/BackHome";
 import YesOrNo from "../containers/YesOrNo";
 import Input from "../containers/Input";
 import ValidForm from "../containers/ValidForm";
+import { Api } from "../containers/Global";
 import * as inputParams from "../containers/inputParams";
 
-const InvitWeeding = () => {
+function InvitWeeding() {
   const history = useHistory();
   const [presence, setPresence] = useState(null);
   const [name, setName] = useState("");
   const [firstname, setFirstname] = useState("");
-  const [numberPhone, setNumberPhone] = useState(undefined);
-  const [nbOfAdult, setNbOfAdult] = useState(undefined);
-  const [nbOfChildren, setNbOfChildren] = useState(undefined);
+  const [numberPhone, setNumberPhone] = useState("");
+  const [nbOfAdult, setNbOfAdult] = useState("");
+  const [nbOfChildren, setNbOfChildren] = useState("");
   const [childrenAllowed, setChildrenAllowed] = useState();
   const [childrenOk, setChildrenOk] = useState();
   const [responseError, setResponseError] = useState({
@@ -25,7 +26,7 @@ const InvitWeeding = () => {
 
   const createData = async () => {
     try {
-      await axios.post("http://localhost:3010/createguest/", {
+      await axios.post(Api + "/guest/create", {
         presence: presence,
         name: name,
         firstname: firstname,
@@ -40,11 +41,11 @@ const InvitWeeding = () => {
 
   const childrenTrue = async () => {
     try {
-      const responseChildren = await axios.get(
-        "http://localhost:3010/readlistchildren"
-      );
+      const responseChildren = await axios.get(Api + "/children/read");
       setChildrenOk(responseChildren.data);
-    } catch (error) {}
+    } catch (error) {
+      console.log("error");
+    }
   };
 
   let firstNameAllowedChildren = [];
@@ -68,7 +69,7 @@ const InvitWeeding = () => {
     }
   }
 
-  const allowedChildren = () => {
+  function allowedChildren() {
     // Nom & Prénom des invités qui ont été invité avec leur enfant
     if (
       // Si ils sont dans le tableau on passe le state à 1 (Qui permettera de proposer le nombre d'adulte et nombre d'enfant)
@@ -94,20 +95,20 @@ const InvitWeeding = () => {
       // Si les champs sont vite, on passe le state à 0 (Qui permettera d'obliger les utilisateurs à remplir les champs pour être attribuer au State 1 ou 2)
       setChildrenAllowed(0);
     }
-  };
+  }
 
   function childrenAllowedOne() {
-    if (numberPhone === undefined || numberPhone.length < 10) {
+    if (numberPhone === "" || numberPhone.length < 10) {
       setResponseError({
         status: true,
         message: "Merci de renseigner votre numéro de téléphone"
       });
-    } else if (nbOfAdult === undefined) {
+    } else if (nbOfAdult === "") {
       setResponseError({
         status: true,
         message: "Merci de renseigner le nombre d'adulte"
       });
-    } else if (nbOfChildren === undefined) {
+    } else if (nbOfChildren === "") {
       setResponseError({
         status: true,
         message: "Merci de renseigner le nombre d'enfant"
@@ -118,19 +119,19 @@ const InvitWeeding = () => {
       setPresence(null);
       setName("");
       setFirstname("");
-      setNumberPhone(undefined);
-      setNbOfAdult(undefined);
-      setNbOfChildren(undefined);
+      setNumberPhone("");
+      setNbOfAdult("");
+      setNbOfChildren("");
     }
   }
 
   function childrenAllowedTwo() {
-    if (numberPhone === undefined || numberPhone.length < 10) {
+    if (numberPhone === "" || numberPhone.length < 10) {
       setResponseError({
         status: true,
         message: "Merci de renseigner votre numéro de téléphone"
       });
-    } else if (nbOfAdult === undefined) {
+    } else if (nbOfAdult === "") {
       setResponseError({
         status: true,
         message: "Merci de renseigner le nombre d'adulte"
@@ -141,8 +142,8 @@ const InvitWeeding = () => {
       setPresence(null);
       setName("");
       setFirstname("");
-      setNumberPhone(undefined);
-      setNbOfAdult(undefined);
+      setNumberPhone("");
+      setNbOfAdult("");
     }
   }
 
@@ -166,9 +167,7 @@ const InvitWeeding = () => {
   }
 
   useEffect(() => {
-    {
-      allowedChildren();
-    }
+    allowedChildren();
     childrenTrue();
   }, [name, firstname]);
 
@@ -269,6 +268,6 @@ const InvitWeeding = () => {
       </div>
     </>
   );
-};
+}
 
 export default InvitWeeding;

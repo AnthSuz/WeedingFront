@@ -2,61 +2,53 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+import BackHome from "../containers/BackHome";
 import Input from "../containers/Input";
 import * as inputParams from "../containers/inputParams";
 
-import BackHome from "../containers/BackHome";
-
-const ListInvitAdmin = props => {
-  const [filterInvite, setFilterInvite] = useState([]);
+function ListInvitAdmin(props) {
   const [name, setName] = useState("");
+  const [filterInvite, setFilterInvite] = useState([]);
 
   const invite = props.invite;
   const setInvite = props.setInvite;
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get("http://localhost:3010/readlistguest");
-      setInvite(response.data);
-      setFilterInvite(response.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3010/guest/read");
+        setInvite(response.data);
+        setFilterInvite(response.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
     fetchData();
-  }, []);
+  }, [setInvite]);
 
   return (
     <>
       <BackHome back="/Admin_Home" where="l'acceuil admin" />
       <div className="arrayAdmin">
-        <form
-          onSubmit={event => {
+        <Input
+          inputParams={inputParams.SearchName}
+          value={name}
+          onChange={event => {
+            const searchName = event.target.value;
+            setName(searchName);
             event.preventDefault();
-            fetchData();
+            let filter;
+            if (searchName === "") {
+              filter = [...invite];
+            } else {
+              filter = invite.filter(item =>
+                item.name.toUpperCase().includes(searchName.toUpperCase())
+              );
+            }
+            setFilterInvite(filter);
           }}
-        >
-          <Input
-            inputParams={inputParams.SearchName}
-            value={name}
-            onChange={event => {
-              const searchName = event.target.value;
-              setName(searchName);
-              event.preventDefault();
-              let filter;
-              if (searchName === "") {
-                filter = [...invite];
-              } else {
-                filter = invite.filter(item =>
-                  item.name.toUpperCase().includes(searchName.toUpperCase())
-                );
-              }
-              setFilterInvite(filter);
-            }}
-          />
-        </form>
+        />
         {filterInvite.map((listInvite, index) => {
           return (
             <Link
@@ -66,7 +58,7 @@ const ListInvitAdmin = props => {
               key={index}
             >
               <div className="array">
-                <div className="list">
+                <div>
                   <p>Nom :</p>
                   <p>Prénom :</p>
                   <p>Présence :</p>
@@ -74,30 +66,26 @@ const ListInvitAdmin = props => {
                   <p>Nb Adulte :</p>
                   <p>Nb Enfant :</p>
                 </div>
-                <div className="list">
-                  <p>{listInvite.name === undefined ? "X" : listInvite.name}</p>
+                <div>
+                  <p>{listInvite.name === "" ? "X" : listInvite.name}</p>
                   <p>
-                    {listInvite.firstname === undefined
-                      ? "X"
-                      : listInvite.firstname}
+                    {listInvite.firstname === "" ? "X" : listInvite.firstname}
                   </p>
                   <p>
-                    {listInvite.presence === undefined
-                      ? "X"
-                      : listInvite.presence}
+                    {listInvite.presence === "" ? "X" : listInvite.presence}
                   </p>
                   <p>
-                    {listInvite.numberPhone === undefined
+                    {listInvite.numberPhone === ""
                       ? "X"
                       : listInvite.numberPhone}
                   </p>
                   <p>
-                    {listInvite.numberAdult === undefined
+                    {listInvite.numberAdult === null
                       ? "X"
                       : listInvite.numberAdult}
                   </p>
                   <p>
-                    {listInvite.numberChildren === undefined
+                    {listInvite.numberChildren === null
                       ? "X"
                       : listInvite.numberChildren}
                   </p>
@@ -109,6 +97,6 @@ const ListInvitAdmin = props => {
       </div>
     </>
   );
-};
+}
 
 export default ListInvitAdmin;

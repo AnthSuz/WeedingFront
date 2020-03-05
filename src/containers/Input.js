@@ -7,7 +7,6 @@ function Input(props) {
     <>
       <p>{params.nom}</p>
       <input
-        // className="inputTxt"
         className={params.className}
         placeholder={params.placeholder}
         type={params.type}

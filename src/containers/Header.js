@@ -5,9 +5,7 @@ function Header() {
     <div className="header">
       <div className="txt-header">
         <p>Bienvenue sur le site du mariage de</p>
-        <div className="nameWeeding">
-          <p>Leah & Donovan</p>
-        </div>
+        <p className="nameWeeding">Leah & Donovan</p>
       </div>
       <hr />
     </div>

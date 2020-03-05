@@ -13,12 +13,12 @@ function LoginAdmin(props) {
   const [isError, setIsError] = useState(false);
   const [msgError, setMsgError] = useState("error");
 
-  const setError = msgError => {
+  function setError(msgError) {
     setMsgError(msgError);
     setIsError(true);
-  };
+  }
 
-  const checkParams = () => {
+  function checkParams() {
     let result = false;
     if (!email) {
       setError("Email non renseigné");
@@ -30,7 +30,7 @@ function LoginAdmin(props) {
       result = true;
     }
     return result;
-  };
+  }
 
   const getLogin = async () => {
     if (checkParams()) {

@@ -5,7 +5,7 @@ import Soiree from "../images/factory.jpg";
 
 import BackHome from "../containers/BackHome";
 
-const InfoWeeding = () => {
+function InfoWeeding() {
   return (
     <>
       <BackHome back="/Home" where="l'acceuil" />
@@ -31,6 +31,6 @@ const InfoWeeding = () => {
       </div>
     </>
   );
-};
+}
 
 export default InfoWeeding;

@@ -24,6 +24,8 @@ import LoginAdmin from "./components/LoginAdmin";
 
 function App() {
   const [invite, setInvite] = useState([]);
+  // const [filterInvite, setFilterInvite] = useState([]);
+
   const [token, setToken] = useState(Cookies.get("token") || "");
   const [username, setUsername] = useState("");
 
@@ -54,11 +56,21 @@ function App() {
             {!token ? (
               <Redirect to="/Auth_Admin" />
             ) : (
-              <AdminWeeding invite={invite} setInvite={setInvite} />
+              <AdminWeeding
+                invite={invite}
+                setInvite={setInvite}
+                // filterInvite={filterInvite}
+                // setFilterInvite={setFilterInvite}
+              />
             )}
           </Route>
           <Route path="/ListInvit/:id">
-            <AdminWeedingById invite={invite} setInvite={setInvite} />
+            <AdminWeedingById
+              invite={invite}
+              setInvite={setInvite}
+              // filterInvite={filterInvite}
+              // setFilterInvite={setFilterInvite}
+            />
           </Route>
           <Route path="/Admin_Home">
             {!token ? (

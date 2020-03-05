@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import BackHome from "../containers/BackHome";
-const Children_Admin = () => {
+import Input from "../containers/Input";
+import * as inputParams from "../containers/inputParams";
+import ValidForm from "../containers/ValidForm";
+
+function Children_Admin() {
   const [listChildrenAllowed, setListChildrenAllowed] = useState([]);
   const [name, setName] = useState("");
   const [firstname, setFirstname] = useState("");
@@ -11,20 +15,10 @@ const Children_Admin = () => {
     message: ""
   });
 
-  const nameChange = event => {
-    const value = event.target.value;
-    setName(value);
-  };
-
-  const firstnameChange = event => {
-    const value = event.target.value;
-    setFirstname(value);
-  };
-
-  const CreateChildrenData = async () => {
+  const createData = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3010/createchildren",
+        "http://localhost:3010/children/create",
         {
           firstname: firstname,
           name: name
@@ -41,11 +35,8 @@ const Children_Admin = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:3010/readlistchildren"
-      );
+      const response = await axios.get("http://localhost:3010/children/read");
       setListChildrenAllowed(response.data);
-      console.log("fetchData", response.data);
     } catch (error) {
       console.log("error");
     }
@@ -54,13 +45,12 @@ const Children_Admin = () => {
   const removeData = async id => {
     try {
       await axios.post("http://localhost:3010/children/delete/" + id);
-      console.log("here");
     } catch (error) {
       console.log("error");
     }
   };
 
-  function CreateChildren() {
+  function createChildren() {
     if (name.length <= 0) {
       setResponseCreateChildren({
         status: true,
@@ -72,7 +62,7 @@ const Children_Admin = () => {
         message: "Merci d'entrer un prénom"
       });
     } else {
-      CreateChildrenData();
+      createData();
       setName("");
       setFirstname("");
     }
@@ -86,52 +76,45 @@ const Children_Admin = () => {
       <BackHome back="/Admin_Home" where="l'acceuil admin" />
       <div className="ChildrenAdmin">
         <p>Ajoutez içi les gens invité.e.s avec leurs enfants. </p>
-        <p>NOM</p>
-        <input name="name" value={name} onChange={nameChange} type="text" />
-        <p>PRENOM</p>
-        <input
-          name="firstname"
+        <Input
+          inputParams={inputParams.Name}
+          value={name}
+          onChange={e => setName(e.target.value)}
+        />
+        <Input
+          inputParams={inputParams.Firstname}
           value={firstname}
-          onChange={firstnameChange}
-          type="text"
+          onChange={e => setFirstname(e.target.value)}
         />
         {responseCreateChildren.status && (
           <h4>{responseCreateChildren.message}</h4>
         )}
-        <button
-          onClick={() => {
-            CreateChildren();
-          }}
-        >
-          Valider
-        </button>
+        <ValidForm onClick={createChildren} />
         <h4>Liste des personnes invitées avec leurs enfants</h4>
       </div>
       <div className="listChildren">
         {listChildrenAllowed.map((item, index) => {
           return (
-            <>
-              <div className="listChildrenInside">
-                <p>
-                  {item.firstname} {item.name}{" "}
-                </p>
-                <button
-                  onClick={() => {
-                    removeData(item._id);
-                    const newListTemp = [...listChildrenAllowed];
-                    newListTemp.splice(index, 1);
-                    setListChildrenAllowed(newListTemp);
-                  }}
-                >
-                  X
-                </button>
-              </div>
-            </>
+            <div className="listChildrenInside" key={index}>
+              <p>
+                {item.firstname} {item.name}{" "}
+              </p>
+              <button
+                onClick={() => {
+                  removeData(item._id);
+                  const newListTemp = [...listChildrenAllowed];
+                  newListTemp.splice(index, 1);
+                  setListChildrenAllowed(newListTemp);
+                }}
+              >
+                X
+              </button>
+            </div>
           );
         })}
       </div>
     </>
   );
-};
+}
 
 export default Children_Admin;

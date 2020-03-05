@@ -6,12 +6,10 @@ function YesOrNo(props) {
       <div
         className="yes"
         onClick={() => {
-          {
-            props.onClick();
-          }
+          props.onClick();
         }}
       >
-        <label for="Oui">OUI</label>
+        <label htmlFor="Oui">OUI</label>
         <input
           id="Oui"
           type="radio"
@@ -23,7 +21,7 @@ function YesOrNo(props) {
         />
       </div>
       <div className="no">
-        <label for="Non">NON</label>
+        <label htmlFor="Non">NON</label>
         <input
           id="Non"
           type="radio"

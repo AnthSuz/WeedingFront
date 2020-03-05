@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useHistory } from "react-router-dom";
 
-const Home_Admin = props => {
+function Home_Admin(props) {
   const history = useHistory();
   return (
     <>
@@ -25,6 +25,6 @@ const Home_Admin = props => {
       </button>
     </>
   );
-};
+}
 
 export default Home_Admin;
