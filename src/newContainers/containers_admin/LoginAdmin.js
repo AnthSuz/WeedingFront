@@ -3,8 +3,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useHistory } from "react-router-dom";
 
-import Input from "../containers/Input";
-import * as inputParams from "../containers/inputParams";
+import Input from "../../newComponents/Input";
+import * as inputParams from "../../newComponents/inputParams";
 
 function LoginAdmin(props) {
   const history = useHistory();
@@ -13,11 +13,13 @@ function LoginAdmin(props) {
   const [isError, setIsError] = useState(false);
   const [msgError, setMsgError] = useState("error");
 
+  //Function qui gère le message d'erreur
   function setError(msgError) {
     setMsgError(msgError);
     setIsError(true);
   }
 
+  //Function qui vérifie si tous les champs sont remplis
   function checkParams() {
     let result = false;
     if (!email) {
@@ -48,7 +50,7 @@ function LoginAdmin(props) {
           Cookies.set("token", result.token, { expires: 1 });
           props.setToken(result.token);
           props.setUsername(result.username);
-          history.push("/Admin_Home");
+          history.push("/admin/home_admin");
         } else {
           setError("Mot de passe incorrect");
         }

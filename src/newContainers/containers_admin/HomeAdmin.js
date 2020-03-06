@@ -9,16 +9,16 @@ function Home_Admin(props) {
     <>
       <p>Page d'administration du mariage.</p>
       <p>Bonjour {props.username}</p>
-      <Link to="/ListInvit_Admin">
+      <Link to="/admin/response_list_weeding_admin">
         <p>Voir les réponses</p>
       </Link>
-      <Link to="/Admin_Children">
+      <Link to="/admin/allowed_children_admin">
         <p>Gérer les invités avec enfant</p>
       </Link>
       <button
         onClick={() => {
           Cookies.remove("token");
-          history.push("/Auth_Admin");
+          history.push("/admin");
         }}
       >
         Se deconnecter

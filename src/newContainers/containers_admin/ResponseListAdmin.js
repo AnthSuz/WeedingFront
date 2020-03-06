@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import BackHome from "../containers/BackHome";
-import Input from "../containers/Input";
-import * as inputParams from "../containers/inputParams";
+import BackHome from "../../newComponents/BackHome";
+import Input from "../../newComponents/Input";
+import * as inputParams from "../../newComponents/inputParams";
 
-function ListInvitAdmin(props) {
+function ResponseListAdmin(props) {
   const [name, setName] = useState("");
   const [filterInvite, setFilterInvite] = useState([]);
 
@@ -29,7 +29,7 @@ function ListInvitAdmin(props) {
 
   return (
     <>
-      <BackHome back="/Admin_Home" where="l'acceuil admin" />
+      <BackHome back="/admin/home_admin" where="l'acceuil admin" />
       <div className="arrayAdmin">
         <Input
           inputParams={inputParams.SearchName}
@@ -53,7 +53,8 @@ function ListInvitAdmin(props) {
           return (
             <Link
               to={{
-                pathname: "/ListInvit/" + listInvite._id
+                pathname:
+                  "/admin/response_list_weeding_by_id_admin/" + listInvite._id
               }}
               key={index}
             >
@@ -99,4 +100,4 @@ function ListInvitAdmin(props) {
   );
 }
 
-export default ListInvitAdmin;
+export default ResponseListAdmin;

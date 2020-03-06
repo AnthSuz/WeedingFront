@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-import BackHome from "../containers/BackHome";
-import YesOrNo from "../containers/YesOrNo";
-import Input from "../containers/Input";
-import ValidForm from "../containers/ValidForm";
-import { Api } from "../containers/Global";
-import * as inputParams from "../containers/inputParams";
+import BackHome from "../../newComponents/BackHome";
+import YesOrNo from "../../newComponents/YesOrNo";
+import Input from "../../newComponents/Input";
+import ValidForm from "../../newComponents/ValidForm";
+import { Api } from "../../newComponents/Global";
+import * as inputParams from "../../newComponents/inputParams";
 
 function InvitWeeding() {
   const history = useHistory();
@@ -52,6 +52,7 @@ function InvitWeeding() {
   let nameAllowedChildren = [];
 
   if (childrenOk !== undefined) {
+    //On boucle sur le contenu de l'api children et on push les informations dans les tableaux correspondant
     for (let y = 0; y < childrenOk.length; y++) {
       if (
         firstNameAllowedChildren.indexOf(
@@ -97,6 +98,7 @@ function InvitWeeding() {
     }
   }
 
+  // Function du boutton validé si la réponse est OUI - AVEC nombre d'enfant
   function childrenAllowedOne() {
     if (numberPhone === "" || numberPhone.length < 10) {
       setResponseError({
@@ -115,7 +117,7 @@ function InvitWeeding() {
       });
     } else {
       createData();
-      history.push("/Valid_Invit");
+      history.push("/public/confirm_invit_weeding");
       setPresence(null);
       setName("");
       setFirstname("");
@@ -125,6 +127,7 @@ function InvitWeeding() {
     }
   }
 
+  // Function du boutton validé si la réponse est NON - SANS nombre d'enfant
   function childrenAllowedTwo() {
     if (numberPhone === "" || numberPhone.length < 10) {
       setResponseError({
@@ -138,7 +141,7 @@ function InvitWeeding() {
       });
     } else {
       createData();
-      history.push("/Valid_Invit");
+      history.push("/public/confirm_invit_weeding");
       setPresence(null);
       setName("");
       setFirstname("");
@@ -147,6 +150,7 @@ function InvitWeeding() {
     }
   }
 
+  // Function du boutton validé si la réponse est NON
   function responseNo() {
     if (name.length < 2) {
       setResponseError({
@@ -160,7 +164,7 @@ function InvitWeeding() {
       });
     } else {
       createData();
-      history.push("/Valid_Invit");
+      history.push("/public/confirm_invit_weeding");
       setName("");
       setFirstname("");
     }
@@ -173,7 +177,7 @@ function InvitWeeding() {
 
   return (
     <>
-      <BackHome back="/Home" where="l'acceuil" />
+      <BackHome back="/public/home" where="l'acceuil" />
       <div className="invitWeeding">
         <p className="titleInvitWeeding">
           Veuillez répondre ci-dessous à l'invitation au mariage

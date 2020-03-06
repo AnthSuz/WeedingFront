@@ -1,21 +1,24 @@
 import React from "react";
+import "../../App.css";
 import { Link } from "react-router-dom";
 
-import Button from "../containers/Button";
+import RosesSvg from "../../newComponents/RosesSvg";
 
-function Body() {
+import Button from "../../newComponents/Button";
+
+function Home() {
   return (
-    <div className="body">
-      <div className="wrapper">
+    <>
+      <div className="container">
         <div className="button">
-          <Link to="/Info_Weeding">
+          <Link to="/public/info_weeding">
             <Button
               id="button1"
               className="button1-inside"
               textButton="Le Mariage"
             />
           </Link>
-          <Link to="/Invit_Weeding">
+          <Link to="/public/invit_weeding">
             <Button
               id="button2"
               className="button2-inside"
@@ -24,8 +27,16 @@ function Body() {
           </Link>
         </div>
       </div>
-    </div>
+
+      <div className="toto">
+        <RosesSvg />
+        <a href="/admin">
+          <p>Acces Marié</p>
+        </a>
+        <RosesSvg transform="scale(-1 1)" />
+      </div>
+    </>
   );
 }
 
-export default Body;
+export default Home;

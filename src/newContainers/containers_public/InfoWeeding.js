@@ -1,14 +1,15 @@
 import React from "react";
 
-import Mairie from "../images/mairie.jpg";
-import Soiree from "../images/factory.jpg";
+// IMPORT DES IMAGES
+import Mairie from "../../images/mairie.jpg";
+import Soiree from "../../images/factory.jpg";
 
-import BackHome from "../containers/BackHome";
+import BackHome from "../../newComponents/BackHome";
 
 function InfoWeeding() {
   return (
     <>
-      <BackHome back="/Home" where="l'acceuil" />
+      <BackHome back="/public/home" where="l'acceuil" />
       <div className="infoWeeding">
         <div className="mairie">
           <p>

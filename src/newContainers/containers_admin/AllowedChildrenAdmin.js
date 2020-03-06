@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import BackHome from "../containers/BackHome";
-import Input from "../containers/Input";
-import * as inputParams from "../containers/inputParams";
-import ValidForm from "../containers/ValidForm";
+import BackHome from "../../newComponents/BackHome";
+import Input from "../../newComponents/Input";
+import * as inputParams from "../../newComponents/inputParams";
+import ValidForm from "../../newComponents/ValidForm";
 
-function Children_Admin() {
+function AllowedChildrenAdmin() {
   const [listChildrenAllowed, setListChildrenAllowed] = useState([]);
   const [name, setName] = useState("");
   const [firstname, setFirstname] = useState("");
@@ -50,6 +50,7 @@ function Children_Admin() {
     }
   };
 
+  // Function du boutton valider
   function createChildren() {
     if (name.length <= 0) {
       setResponseCreateChildren({
@@ -73,7 +74,7 @@ function Children_Admin() {
   }, []);
   return (
     <>
-      <BackHome back="/Admin_Home" where="l'acceuil admin" />
+      <BackHome back="/admin/home_admin" where="l'acceuil admin" />
       <div className="ChildrenAdmin">
         <p>Ajoutez içi les gens invité.e.s avec leurs enfants. </p>
         <Input
@@ -117,4 +118,4 @@ function Children_Admin() {
   );
 }
 
-export default Children_Admin;
+export default AllowedChildrenAdmin;

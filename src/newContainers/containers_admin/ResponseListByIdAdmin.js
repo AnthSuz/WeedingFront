@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-import BackHome from "../containers/BackHome";
-import Input from "../containers/Input";
+import BackHome from "../../newComponents/BackHome";
+import Input from "../../newComponents/Input";
+import * as inputParams from "../../newComponents/inputParams";
 
-import * as inputParams from "../containers/inputParams";
-
-function AdminWeedingById(props) {
+function ResponseListByIdAdmin(props) {
   const params = useParams();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -87,7 +86,10 @@ function AdminWeedingById(props) {
         <p>Chargement</p>
       ) : (
         <>
-          <BackHome back="/ListInvit_Admin" where="la liste des réponses" />
+          <BackHome
+            back="/admin/response_list_weeding_admin"
+            where="la liste des réponses"
+          />
           {screen === false ? (
             <div className="adminWeedingById">
               {editResponse === true && <p>Reservation modifié</p>}
@@ -206,4 +208,4 @@ function AdminWeedingById(props) {
   );
 }
 
-export default AdminWeedingById;
+export default ResponseListByIdAdmin;

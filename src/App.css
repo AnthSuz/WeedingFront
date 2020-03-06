@@ -23,11 +23,28 @@ hr {
   border: none;
 }
 
+.container {
+  min-height: calc(100vh - 259px - 80px);
+}
+
+.toto {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toto p {
+  color: #fdbab4;
+  text-decoration: underline;
+  padding: 0 10px;
+}
+
 /* --- HEADER --- */
 
 .header {
   background-image: url("./images/header.jpg");
-  min-height: 200px;
+  min-height: 259px;
 }
 
 .header p {
