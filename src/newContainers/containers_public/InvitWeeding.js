@@ -11,7 +11,7 @@ import * as inputParams from "../../newComponents/inputParams";
 
 function InvitWeeding() {
   const history = useHistory();
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [presence, setPresence] = useState(null);
   const [name, setName] = useState("");
   const [firstname, setFirstname] = useState("");
@@ -19,7 +19,7 @@ function InvitWeeding() {
   const [nbOfAdult, setNbOfAdult] = useState("");
   const [nbOfChildren, setNbOfChildren] = useState("");
   const [childrenAllowed, setChildrenAllowed] = useState();
-  const [childrenOk, setChildrenOk] = useState();
+  const [childrenOk, setChildrenOk] = useState([]);
   const [responseError, setResponseError] = useState({
     status: false,
     message: ""
@@ -27,7 +27,7 @@ function InvitWeeding() {
 
   const createData = async () => {
     try {
-      // setIsLoading(true);
+      setIsLoading(true);
       await axios.post(Api + "/guest/create", {
         presence: presence,
         name: name,
@@ -36,24 +36,30 @@ function InvitWeeding() {
         numberAdult: nbOfAdult,
         numberChildren: nbOfChildren
       });
-      // setIsLoading(false);
-      // console.log(1, isLoading);
+      setIsLoading(false);
+      console.log(1, isLoading);
     } catch (error) {
-      // setIsLoading(false);
+      setIsLoading(false);
       console.log("error");
     }
   };
 
   const childrenTrue = async () => {
-    try {
-      // setIsLoading(true);
-      const responseChildren = await axios.get(Api + "/children/read");
-      // setIsLoading(false);
-      // console.log(2, "false");
-      setChildrenOk(responseChildren.data);
-    } catch (error) {
-      // setIsLoading(false);
-      console.log("error");
+    if (childrenOk.length === 0) {
+      try {
+        console.log("childrentruehere");
+        setPresence("Oui");
+        setIsLoading(true);
+
+        const responseChildren = await axios.get(Api + "/children/read");
+        setIsLoading(false);
+        console.log(2, "false");
+        setChildrenOk(responseChildren.data);
+        console.log("childrenOK", childrenOk);
+      } catch (error) {
+        setIsLoading(false);
+        console.log("error");
+      }
     }
   };
 
@@ -102,7 +108,7 @@ function InvitWeeding() {
     ) {
       setChildrenAllowed(2);
     } else if (name.length === 0 || firstname.length === 0) {
-      // Si les champs sont vite, on passe le state à 0 (Qui permettera d'obliger les utilisateurs à remplir les champs pour être attribuer au State 1 ou 2)
+      // Si les champs sont vide, on passe le state à 0 (Qui permettera d'obliger les utilisateurs à remplir les champs pour être attribuer au State 1 ou 2)
       setChildrenAllowed(0);
     }
   }
@@ -125,8 +131,8 @@ function InvitWeeding() {
         message: "Merci de renseigner le nombre d'enfant"
       });
     } else {
-      // setIsLoading(true);
-      // console.log(3, isLoading);
+      setIsLoading(true);
+      console.log(3, isLoading);
       createData();
       history.push("/public/confirm_invit_weeding");
       setPresence(null);
@@ -151,8 +157,8 @@ function InvitWeeding() {
         message: "Merci de renseigner le nombre d'adulte"
       });
     } else {
-      // setIsLoading(true);
-      // console.log(4, isLoading);
+      setIsLoading(true);
+      console.log(4, isLoading);
       createData();
       history.push("/public/confirm_invit_weeding");
       setPresence(null);
@@ -176,8 +182,8 @@ function InvitWeeding() {
         message: "Merci de renseigner votre prénom"
       });
     } else {
-      // setIsLoading(true);
-      // console.log(5, isLoading);
+      setIsLoading(true);
+      console.log(5, isLoading);
       createData();
       history.push("/public/confirm_invit_weeding");
       setName("");
@@ -186,15 +192,19 @@ function InvitWeeding() {
   }
 
   useEffect(() => {
-    allowedChildren();
-    // childrenTrue();
+    if (name.length >= 3 && firstname.length >= 3) {
+      console.log("useEffect name firstname", { name }, { firstname });
+      allowedChildren();
+      childrenTrue();
+    } else {
+      allowedChildren();
+    }
   }, [name, firstname]);
   console.log("presence", presence);
 
-  let isLoading = false;
   return (
     <>
-      {/* {console.log(7, isLoading)} */}
+      {console.log(7, isLoading)}
       {isLoading === false ? (
         <>
           <BackHome back="/public/home" where="l'acceuil" />
