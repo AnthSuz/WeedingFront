@@ -38,6 +38,7 @@ export const Children = {
 };
 
 export const Email = {
+  className: "inputTxtLogin",
   nom: "EMAIL",
   placeholder: "Email",
   type: "email",
@@ -45,6 +46,7 @@ export const Email = {
 };
 
 export const Password = {
+  className: "inputTxtLogin",
   nom: "PASSWORD",
   placeholder: "Mot de passe",
   type: "password",

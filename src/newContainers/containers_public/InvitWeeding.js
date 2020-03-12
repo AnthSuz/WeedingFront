@@ -11,6 +11,7 @@ import * as inputParams from "../../newComponents/inputParams";
 
 function InvitWeeding() {
   const history = useHistory();
+  // const [isLoading, setIsLoading] = useState(false);
   const [presence, setPresence] = useState(null);
   const [name, setName] = useState("");
   const [firstname, setFirstname] = useState("");
@@ -26,6 +27,7 @@ function InvitWeeding() {
 
   const createData = async () => {
     try {
+      // setIsLoading(true);
       await axios.post(Api + "/guest/create", {
         presence: presence,
         name: name,
@@ -34,16 +36,23 @@ function InvitWeeding() {
         numberAdult: nbOfAdult,
         numberChildren: nbOfChildren
       });
+      // setIsLoading(false);
+      // console.log(1, isLoading);
     } catch (error) {
+      // setIsLoading(false);
       console.log("error");
     }
   };
 
   const childrenTrue = async () => {
     try {
+      // setIsLoading(true);
       const responseChildren = await axios.get(Api + "/children/read");
+      // setIsLoading(false);
+      // console.log(2, "false");
       setChildrenOk(responseChildren.data);
     } catch (error) {
+      // setIsLoading(false);
       console.log("error");
     }
   };
@@ -116,6 +125,8 @@ function InvitWeeding() {
         message: "Merci de renseigner le nombre d'enfant"
       });
     } else {
+      // setIsLoading(true);
+      // console.log(3, isLoading);
       createData();
       history.push("/public/confirm_invit_weeding");
       setPresence(null);
@@ -140,6 +151,8 @@ function InvitWeeding() {
         message: "Merci de renseigner le nombre d'adulte"
       });
     } else {
+      // setIsLoading(true);
+      // console.log(4, isLoading);
       createData();
       history.push("/public/confirm_invit_weeding");
       setPresence(null);
@@ -163,6 +176,8 @@ function InvitWeeding() {
         message: "Merci de renseigner votre prénom"
       });
     } else {
+      // setIsLoading(true);
+      // console.log(5, isLoading);
       createData();
       history.push("/public/confirm_invit_weeding");
       setName("");
@@ -172,104 +187,113 @@ function InvitWeeding() {
 
   useEffect(() => {
     allowedChildren();
-    childrenTrue();
+    // childrenTrue();
   }, [name, firstname]);
+  console.log("presence", presence);
 
+  let isLoading = false;
   return (
     <>
-      <BackHome back="/public/home" where="l'acceuil" />
-      <div className="invitWeeding">
-        <p className="titleInvitWeeding">
-          Veuillez répondre ci-dessous à l'invitation au mariage
-        </p>
-        <YesOrNo
-          onClick={childrenTrue}
-          onChange={e => setPresence(e.target.value)}
-          checked={presence}
-        />
-        {/* S'ils sont présent on affiche ceci  */}
-        {presence === "Oui" ? (
-          <>
-            <Input
-              inputParams={inputParams.Name}
-              value={name}
-              onChange={e => setName(e.target.value)}
+      {/* {console.log(7, isLoading)} */}
+      {isLoading === false ? (
+        <>
+          <BackHome back="/public/home" where="l'acceuil" />
+          <div className="invitWeeding">
+            <p className="titleInvitWeeding">
+              Veuillez répondre ci-dessous à l'invitation au mariage
+            </p>
+            <YesOrNo
+              onClick={childrenTrue}
+              onChange={e => setPresence(e.target.value)}
+              checked={presence}
             />
-            <Input
-              inputParams={inputParams.Firstname}
-              value={firstname}
-              onChange={e => setFirstname(e.target.value)}
-            />
-            <Input
-              inputParams={inputParams.Phone}
-              value={numberPhone}
-              onChange={e => setNumberPhone(e.target.value)}
-            />
-            {/* S'ils sont invités avec leur enfant on leur demande le nombre  */}
-            {childrenAllowed === 1 ? (
+            {/* S'ils sont présent on affiche ceci  */}
+            {presence === "Oui" ? (
               <>
                 <Input
-                  inputParams={inputParams.Adult}
-                  value={nbOfAdult}
-                  onChange={e => setNbOfAdult(e.target.value)}
+                  inputParams={inputParams.Name}
+                  value={name}
+                  onChange={e => setName(e.target.value)}
                 />
-                <p>
-                  NOMBRE ENFANT{" "}
-                  <span className="condChildren">
-                    (Enfant de moins de 13 ans)
-                  </span>
-                </p>
                 <Input
-                  inputParams={inputParams.Children}
-                  value={nbOfChildren}
-                  onChange={e => setNbOfChildren(e.target.value)}
+                  inputParams={inputParams.Firstname}
+                  value={firstname}
+                  onChange={e => setFirstname(e.target.value)}
                 />
-                <br />
-                {responseError.status && (
-                  <p className="responseError">{responseError.message}</p>
-                )}
-                <ValidForm onClick={childrenAllowedOne} />
+                <Input
+                  inputParams={inputParams.Phone}
+                  value={numberPhone}
+                  onChange={e => setNumberPhone(e.target.value)}
+                />
+                {/* S'ils sont invités avec leur enfant on leur demande le nombre  */}
+                {childrenAllowed === 1 ? (
+                  <>
+                    <Input
+                      inputParams={inputParams.Adult}
+                      value={nbOfAdult}
+                      onChange={e => setNbOfAdult(e.target.value)}
+                    />
+                    <p>
+                      NOMBRE ENFANT{" "}
+                      <span className="condChildren">
+                        (Enfant de moins de 13 ans)
+                      </span>
+                    </p>
+                    <Input
+                      inputParams={inputParams.Children}
+                      value={nbOfChildren}
+                      onChange={e => setNbOfChildren(e.target.value)}
+                    />
+                    <br />
+                    {responseError.status && (
+                      <p className="responseError">{responseError.message}</p>
+                    )}
+                    <ValidForm onClick={childrenAllowedOne} />
+                  </>
+                ) : // S'ils ne sont pas invités avec leur enfant on leur demande uniquement le nombre d'adulte
+                childrenAllowed === 2 ? (
+                  <>
+                    <Input
+                      inputParams={inputParams.Adult}
+                      value={nbOfAdult}
+                      onChange={e => setNbOfAdult(e.target.value)}
+                    />
+                    <br />
+                    {responseError.status && (
+                      <p className="responseError">{responseError.message}</p>
+                    )}
+                    <ValidForm onClick={childrenAllowedTwo} />
+                  </>
+                ) : // Si les champs sont vide, on leur propose rien
+                null}
               </>
-            ) : // S'ils ne sont pas invités avec leur enfant on leur demande uniquement le nombre d'adulte
-            childrenAllowed === 2 ? (
+            ) : // S'il sont absent on leur affiche que ceci :
+            presence === "Non" ? (
               <>
-                <Input
-                  inputParams={inputParams.Adult}
-                  value={nbOfAdult}
-                  onChange={e => setNbOfAdult(e.target.value)}
-                />
-                <br />
-                {responseError.status && (
-                  <p className="responseError">{responseError.message}</p>
-                )}
-                <ValidForm onClick={childrenAllowedTwo} />
+                <div className="responseNo">
+                  <Input
+                    inputParams={inputParams.Name}
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                  />
+                  <Input
+                    inputParams={inputParams.Firstname}
+                    value={firstname}
+                    onChange={e => setFirstname(e.target.value)}
+                  />
+                  {responseError.status && (
+                    <p className="responseError">{responseError.message}</p>
+                  )}
+                  <ValidForm onClick={responseNo} />
+                </div>
               </>
-            ) : // Si les champs sont vide, on leur propose rien
+            ) : //S'ils répondent rien, alors on leur propose rien
             null}
-          </>
-        ) : // S'il sont absent on leur affiche que ceci :
-        presence === "Non" ? (
-          <>
-            <div className="responseNo">
-              <Input
-                inputParams={inputParams.Name}
-                value={name}
-                onChange={e => setName(e.target.value)}
-              />
-              <Input
-                inputParams={inputParams.Firstname}
-                value={firstname}
-                onChange={e => setFirstname(e.target.value)}
-              />
-              {responseError.status && (
-                <p className="responseError">{responseError.message}</p>
-              )}
-              <ValidForm onClick={responseNo} />
-            </div>
-          </>
-        ) : //S'ils répondent rien, alors on leur propose rien
-        null}
-      </div>
+          </div>{" "}
+        </>
+      ) : (
+        <p>Chargement</p>
+      )}
     </>
   );
 }

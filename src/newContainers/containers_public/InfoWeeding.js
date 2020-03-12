@@ -22,8 +22,8 @@ function InfoWeeding() {
         <div className="party">
           <img src={Soiree} alt="Devanture Factory 58" className="img_soiree" />
           <p>
-            Ils seront honorés de votre présence pour la Houppa <br /> le jeudi
-            10 septembre 2020 - 21 Eloul 5780
+            Ils seront honorés de votre présence pour la Houppa le
+            <br /> jeudi 10 septembre 2020 <br /> 21 Eloul 5780
             <br /> à 17H00 <br /> dans les jardins de la salle Factory 58 <br />{" "}
             12 rue Gutenberg 93000 Bobigny
             <br /> La cérémonie religieuse sera suivie de la réception...

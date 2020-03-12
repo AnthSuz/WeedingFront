@@ -5,7 +5,7 @@ function Input(props) {
 
   return (
     <>
-      <p>{params.nom}</p>
+      <p className="titleInput">{params.nom}</p>
       <input
         className={params.className}
         placeholder={params.placeholder}

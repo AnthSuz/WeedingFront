@@ -1,15 +1,9 @@
 import React from "react";
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect
-} from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 // --- IMPORT DES COMPONENTS ---
 import Header from "./newComponents/Header";
-import Footer from "./newComponents/Footer";
 
 // --- IMPORT DES CONTAINERS ---
 import Public from "./newContainers/Public";
@@ -28,7 +22,6 @@ function App() {
         <Admin />
       </Route>
       {/* FOOTER */}
-      {/* <Footer /> */}
     </Router>
   );
 }

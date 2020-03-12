@@ -8,7 +8,7 @@ button {
 }
 
 p {
-  font-family: "Roboto";
+  font-family: "Roboto", "Verdana";
 }
 
 body {
@@ -213,22 +213,27 @@ input[type="radio"]:checked:after {
 }
 /* --- */
 
+.titleInput {
+  font-size: larger;
+}
+
 /* -> INPUT */
 .inputTxt {
   background-color: #fdbab4;
   border: none;
   border-radius: 10px;
   outline: none;
-  height: 30px;
+  height: 35px;
   width: 200px;
   padding-left: 10px;
   text-transform: uppercase;
+  font-size: 16px;
 }
 /* --- */
 
 /* -> VALID FORM */
 .inputValid {
-  margin-top: 20px;
+  margin: 20px 0;
   background-color: #d2d3d1;
   border: none;
   height: 30px;
@@ -237,6 +242,7 @@ input[type="radio"]:checked:after {
   text-transform: uppercase;
   font-weight: 600;
   cursor: pointer;
+  font-size: smaller;
 }
 
 .inputValid:hover {
@@ -308,10 +314,10 @@ input[type="radio"]:checked:after {
   width: 800px;
   padding-right: 50px;
   text-align: center;
-  line-height: 2;
+  line-height: 1.5;
   font-size: 19px;
   background-color: rgba(251, 220, 218, 0.5);
-  min-height: 201px;
+  max-height: 228px;
   font-weight: 300;
   margin: 0;
   display: flex;
@@ -336,13 +342,52 @@ input[type="radio"]:checked:after {
   margin: 10px;
 }
 
+/* --- LOGIN ADMING --- */
+
+.loginAdmin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.loginAdmin input[type="submit"] {
+  margin: 20px 0 10px 0;
+}
+
+/* -> INPUT */
+.inputTxtLogin {
+  background-color: #fdbab4;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  height: 35px;
+  width: 200px;
+  padding-left: 10px;
+  font-size: 16px;
+}
+/* --- */
+
+/* --- HOME ADMIN --- */
+.adminHome {
+  text-align: center;
+}
+
+.buttonAdminHome {
+  margin: 0 auto;
+  margin-bottom: 20px;
+  background-color: #fdbab4;
+  width: 70%;
+  line-height: 30px;
+  border-radius: 10px;
+}
 /* --- ADMIN LIST SCREEN ---  */
 .arrayAdmin {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 50px 0;
+  margin-bottom: 20px;
 }
 
 .array {
@@ -358,13 +403,13 @@ input[type="radio"]:checked:after {
 
 /* -> INPUT  */
 .searchName {
-  height: 30px;
+  height: 35px;
   width: 240px;
   margin-bottom: 20px;
   border: 2px solid #fdbab4;
   border-radius: 10px;
   padding-left: 10px;
-  font-size: 15px;
+  font-size: 16px;
   text-transform: uppercase;
   outline: none;
   background-color: #fdbab4;
@@ -377,10 +422,23 @@ input[type="radio"]:checked:after {
   max-width: 290px;
 }
 
+.adminWeedingById > p {
+  text-align: center;
+  text-transform: uppercase;
+  color: red;
+}
+
 .updateGuest {
   border: 2px solid #fdbab4;
   padding: 10px;
+  margin-bottom: 20px;
   text-align: center;
+}
+
+.deleteResponse {
+  text-align: center;
+  text-transform: uppercase;
+  color: red;
 }
 
 /* --- ADMIN CHILDREN --- */
@@ -442,4 +500,94 @@ input[type="radio"]:checked:after {
   text-transform: uppercase;
   font-weight: 600;
   cursor: pointer;
+}
+
+@media (max-width: 1220px) {
+  .header {
+    min-height: 238px;
+  }
+
+  .header p {
+    margin-bottom: 0;
+  }
+
+  .button1-inside {
+    line-height: 25px;
+  }
+
+  .mairie {
+    flex-direction: column-reverse;
+  }
+
+  .mairie img {
+    width: 320px;
+  }
+
+  .mairie p {
+    width: 300px;
+    padding: 10px;
+    margin-top: 0;
+    font-size: 16px;
+  }
+
+  .img_soiree {
+    width: 320px;
+  }
+
+  .party {
+    flex-direction: column;
+  }
+
+  .party p {
+    width: 300px;
+    padding: 30px 10px;
+    margin-bottom: 0;
+    font-size: 16px;
+  }
+
+  .button2-inside {
+    line-height: 25px;
+  }
+
+  .nameWeeding {
+    margin-top: 0;
+  }
+
+  .txt-header {
+    margin: 0 10px;
+    text-align: center;
+  }
+
+  .button {
+    flex-direction: column;
+    align-items: center;
+    padding: 33px 0;
+  }
+
+  #button1 {
+    width: 300px;
+    min-height: 200px;
+    margin-bottom: 30px;
+  }
+
+  #button2 {
+    width: 300px;
+    min-height: 200px;
+  }
+
+  .backHome {
+    margin-left: 5px;
+  }
+
+  .validInvit {
+    max-width: 300px;
+  }
+
+  .validInvit button {
+    width: 300px;
+  }
+
+  .validInvit p {
+    text-align: center;
+  }
 }

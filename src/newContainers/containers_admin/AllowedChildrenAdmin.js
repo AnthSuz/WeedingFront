@@ -5,6 +5,7 @@ import BackHome from "../../newComponents/BackHome";
 import Input from "../../newComponents/Input";
 import * as inputParams from "../../newComponents/inputParams";
 import ValidForm from "../../newComponents/ValidForm";
+import { Api } from "../../newComponents/Global";
 
 function AllowedChildrenAdmin() {
   const [listChildrenAllowed, setListChildrenAllowed] = useState([]);
@@ -17,13 +18,10 @@ function AllowedChildrenAdmin() {
 
   const createData = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:3010/children/create",
-        {
-          firstname: firstname,
-          name: name
-        }
-      );
+      const response = await axios.post(Api + "/children/create", {
+        firstname: firstname,
+        name: name
+      });
       const id = response.data._id;
       const newListChildrenAllowed = [...listChildrenAllowed];
       newListChildrenAllowed.push({ _id: id, firstname, name });
@@ -35,7 +33,7 @@ function AllowedChildrenAdmin() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:3010/children/read");
+      const response = await axios.get(Api + "/children/read");
       setListChildrenAllowed(response.data);
     } catch (error) {
       console.log("error");
@@ -44,7 +42,7 @@ function AllowedChildrenAdmin() {
 
   const removeData = async id => {
     try {
-      await axios.post("http://localhost:3010/children/delete/" + id);
+      await axios.post(Api + "/children/delete/" + id);
     } catch (error) {
       console.log("error");
     }

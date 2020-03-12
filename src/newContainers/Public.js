@@ -1,11 +1,6 @@
 import React from "react";
 import "../App.css";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import Home from "./containers_public/Home";
 import InfoWeeding from "./containers_public/InfoWeeding";
@@ -14,7 +9,7 @@ import ValidInvitWeeding from "./containers_public/ValidInvitWeeding";
 
 function Public() {
   return (
-    <Router>
+    <>
       <Switch>
         <Route exact={true} path="/">
           <Redirect to="/public/home" />
@@ -32,7 +27,7 @@ function Public() {
           <ValidInvitWeeding />
         </Route>
       </Switch>
-    </Router>
+    </>
   );
 }
 

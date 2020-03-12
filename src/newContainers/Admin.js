@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import "../App.css";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import LoginAdmin from "./containers_admin/LoginAdmin";
@@ -19,7 +14,7 @@ function Admin() {
   const [token, setToken] = useState(Cookies.get("token") || "");
   const [username, setUsername] = useState("");
   return (
-    <Router>
+    <>
       <Switch>
         <Route exact={true} path="/admin">
           <Redirect to="/admin/login_admin" />
@@ -52,7 +47,7 @@ function Admin() {
           {!token ? <Redirect to="/admin" /> : <AllowedChildren />}
         </Route>
       </Switch>
-    </Router>
+    </>
   );
 }
 

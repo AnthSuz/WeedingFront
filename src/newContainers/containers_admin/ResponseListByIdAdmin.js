@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import BackHome from "../../newComponents/BackHome";
 import Input from "../../newComponents/Input";
 import * as inputParams from "../../newComponents/inputParams";
+import { Api } from "../../newComponents/Global";
 
 function ResponseListByIdAdmin(props) {
   const params = useParams();
@@ -39,7 +40,9 @@ function ResponseListByIdAdmin(props) {
         body.numberAdult = "";
         body.numberChildren = "";
       }
-      await axios.post("http://localhost:3010/guest/update/", body);
+      setIsLoading(true);
+      await axios.post(Api + "/guest/update/", body);
+      setIsLoading(false);
     } catch (error) {
       console.log(error.message);
     }
@@ -47,7 +50,9 @@ function ResponseListByIdAdmin(props) {
 
   const removeData = async () => {
     try {
-      await axios.post("http://localhost:3010/guest/delete/" + id);
+      setIsLoading(true);
+      await axios.post(Api + "/guest/delete/" + id);
+      setIsLoading(false);
     } catch (error) {
       console.log("error");
     }
@@ -56,9 +61,9 @@ function ResponseListByIdAdmin(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3010/guest/read/" + id
-        );
+        setIsLoading(true);
+        const response = await axios.get(Api + "/guest/read/" + id);
+        setIsLoading(false);
         setPresence(response.data.presence);
         setName(response.data.name);
         setFirstname(response.data.firstname);
@@ -71,7 +76,6 @@ function ResponseListByIdAdmin(props) {
             ? ""
             : response.data.numberChildren
         );
-        setIsLoading(false);
       } catch (error) {
         console.log(error.message);
       }
@@ -200,7 +204,7 @@ function ResponseListByIdAdmin(props) {
               </div>
             </div>
           ) : (
-            <p>BONJOUR MONDE</p>
+            <p className="deleteResponse">RESERVATION SUPPRIMER</p>
           )}
         </>
       )}

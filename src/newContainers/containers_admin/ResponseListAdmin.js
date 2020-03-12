@@ -5,6 +5,7 @@ import axios from "axios";
 import BackHome from "../../newComponents/BackHome";
 import Input from "../../newComponents/Input";
 import * as inputParams from "../../newComponents/inputParams";
+import { Api } from "../../newComponents/Global";
 
 function ResponseListAdmin(props) {
   const [name, setName] = useState("");
@@ -16,7 +17,7 @@ function ResponseListAdmin(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3010/guest/read");
+        const response = await axios.get(Api + "/guest/read");
         setInvite(response.data);
         setFilterInvite(response.data);
       } catch (error) {

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import Input from "../../newComponents/Input";
 import * as inputParams from "../../newComponents/inputParams";
+import { Api } from "../../newComponents/Global";
 
 function LoginAdmin(props) {
   const history = useHistory();
@@ -38,7 +39,7 @@ function LoginAdmin(props) {
     if (checkParams()) {
       try {
         const response = await axios.post(
-          "http://localhost:3010/user/login",
+          Api + "/user/login",
           {
             email: email,
             password: password
@@ -62,7 +63,7 @@ function LoginAdmin(props) {
   };
 
   return (
-    <>
+    <div className="loginAdmin">
       <p>Authentification Admin</p>
       <form
         onSubmit={event => {
@@ -82,9 +83,13 @@ function LoginAdmin(props) {
         />
         <br />
         {isError && <p>{msgError}</p>}
-        <input type="submit" value="Se connecter" />
+        <input type="submit" value="Connexion" />
+        <br />
+        <Link to="/">
+          <button>Retour sur le site</button>
+        </Link>
       </form>
-    </>
+    </div>
   );
 }
 

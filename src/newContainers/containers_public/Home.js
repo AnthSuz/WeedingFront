@@ -30,9 +30,9 @@ function Home() {
 
       <div className="toto">
         <RosesSvg />
-        <a href="/admin">
+        <Link to="/admin/home_admin">
           <p>Acces Marié</p>
-        </a>
+        </Link>
         <RosesSvg transform="scale(-1 1)" />
       </div>
     </>
