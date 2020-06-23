@@ -22,7 +22,7 @@ function InvitWeeding() {
   const [childrenOk, setChildrenOk] = useState([]);
   const [responseError, setResponseError] = useState({
     status: false,
-    message: ""
+    message: "",
   });
 
   const createData = async () => {
@@ -34,31 +34,29 @@ function InvitWeeding() {
         firstname: firstname,
         numberPhone: numberPhone,
         numberAdult: nbOfAdult,
-        numberChildren: nbOfChildren
+        numberChildren: nbOfChildren,
       });
       setIsLoading(false);
-      console.log(1, isLoading);
+      history.push("/public/confirm_invit_weeding");
     } catch (error) {
       setIsLoading(false);
-      console.log("error");
+      alert("Error");
+      console.log("error 1");
     }
   };
 
   const childrenTrue = async () => {
     if (childrenOk.length === 0) {
       try {
-        console.log("childrentruehere");
         setPresence("Oui");
         setIsLoading(true);
 
         const responseChildren = await axios.get(Api + "/children/read");
         setIsLoading(false);
-        console.log(2, "false");
         setChildrenOk(responseChildren.data);
-        console.log("childrenOK", childrenOk);
       } catch (error) {
         setIsLoading(false);
-        console.log("error");
+        console.log("error 2");
       }
     }
   };
@@ -118,23 +116,22 @@ function InvitWeeding() {
     if (numberPhone === "" || numberPhone.length < 10) {
       setResponseError({
         status: true,
-        message: "Merci de renseigner votre numéro de téléphone"
+        message: "Merci de renseigner votre numéro de téléphone",
       });
     } else if (nbOfAdult === "") {
       setResponseError({
         status: true,
-        message: "Merci de renseigner le nombre d'adulte"
+        message: "Merci de renseigner le nombre d'adulte",
       });
     } else if (nbOfChildren === "") {
       setResponseError({
         status: true,
-        message: "Merci de renseigner le nombre d'enfant"
+        message: "Merci de renseigner le nombre d'enfant",
       });
     } else {
       setIsLoading(true);
-      console.log(3, isLoading);
       createData();
-      history.push("/public/confirm_invit_weeding");
+      // history.push("/public/confirm_invit_weeding");
       setPresence(null);
       setName("");
       setFirstname("");
@@ -144,23 +141,22 @@ function InvitWeeding() {
     }
   }
 
-  // Function du boutton validé si la réponse est NON - SANS nombre d'enfant
+  // Function du boutton validé si la réponse est OUI - SANS nombre d'enfant
   function childrenAllowedTwo() {
     if (numberPhone === "" || numberPhone.length < 10) {
       setResponseError({
         status: true,
-        message: "Merci de renseigner votre numéro de téléphone"
+        message: "Merci de renseigner votre numéro de téléphone",
       });
     } else if (nbOfAdult === "") {
       setResponseError({
         status: true,
-        message: "Merci de renseigner le nombre d'adulte"
+        message: "Merci de renseigner le nombre d'adulte",
       });
     } else {
       setIsLoading(true);
-      console.log(4, isLoading);
       createData();
-      history.push("/public/confirm_invit_weeding");
+      // history.push("/public/confirm_invit_weeding");
       setPresence(null);
       setName("");
       setFirstname("");
@@ -174,29 +170,29 @@ function InvitWeeding() {
     if (name.length < 2) {
       setResponseError({
         status: true,
-        message: "Merci de renseigner votre nom"
+        message: "Merci de renseigner votre nom",
       });
     } else if (firstname.length < 2) {
       setResponseError({
         status: true,
-        message: "Merci de renseigner votre prénom"
+        message: "Merci de renseigner votre prénom",
       });
     } else {
       setIsLoading(true);
-      console.log(5, isLoading);
       createData();
-      history.push("/public/confirm_invit_weeding");
       setName("");
       setFirstname("");
     }
   }
 
   useEffect(() => {
-    if (name.length >= 3 && firstname.length >= 3) {
+    if (name.length >= 3 && firstname.length >= 3 && presence === "Oui") {
       console.log("useEffect name firstname", { name }, { firstname });
       allowedChildren();
       childrenTrue();
-    } else {
+    } else if (presence === "Non") {
+      return;
+    } else if (childrenOk.length > 0) {
       allowedChildren();
     }
   }, [name, firstname]);
@@ -214,7 +210,7 @@ function InvitWeeding() {
             </p>
             <YesOrNo
               onClick={childrenTrue}
-              onChange={e => setPresence(e.target.value)}
+              onChange={(e) => setPresence(e.target.value)}
               checked={presence}
             />
             {/* S'ils sont présent on affiche ceci  */}
@@ -223,17 +219,17 @@ function InvitWeeding() {
                 <Input
                   inputParams={inputParams.Name}
                   value={name}
-                  onChange={e => setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                 />
                 <Input
                   inputParams={inputParams.Firstname}
                   value={firstname}
-                  onChange={e => setFirstname(e.target.value)}
+                  onChange={(e) => setFirstname(e.target.value)}
                 />
                 <Input
                   inputParams={inputParams.Phone}
                   value={numberPhone}
-                  onChange={e => setNumberPhone(e.target.value)}
+                  onChange={(e) => setNumberPhone(e.target.value)}
                 />
                 {/* S'ils sont invités avec leur enfant on leur demande le nombre  */}
                 {childrenAllowed === 1 ? (
@@ -241,7 +237,7 @@ function InvitWeeding() {
                     <Input
                       inputParams={inputParams.Adult}
                       value={nbOfAdult}
-                      onChange={e => setNbOfAdult(e.target.value)}
+                      onChange={(e) => setNbOfAdult(e.target.value)}
                     />
                     <p>
                       NOMBRE ENFANT{" "}
@@ -252,7 +248,7 @@ function InvitWeeding() {
                     <Input
                       inputParams={inputParams.Children}
                       value={nbOfChildren}
-                      onChange={e => setNbOfChildren(e.target.value)}
+                      onChange={(e) => setNbOfChildren(e.target.value)}
                     />
                     <br />
                     {responseError.status && (
@@ -266,7 +262,7 @@ function InvitWeeding() {
                     <Input
                       inputParams={inputParams.Adult}
                       value={nbOfAdult}
-                      onChange={e => setNbOfAdult(e.target.value)}
+                      onChange={(e) => setNbOfAdult(e.target.value)}
                     />
                     <br />
                     {responseError.status && (
@@ -284,12 +280,12 @@ function InvitWeeding() {
                   <Input
                     inputParams={inputParams.Name}
                     value={name}
-                    onChange={e => setName(e.target.value)}
+                    onChange={(e) => setName(e.target.value)}
                   />
                   <Input
                     inputParams={inputParams.Firstname}
                     value={firstname}
-                    onChange={e => setFirstname(e.target.value)}
+                    onChange={(e) => setFirstname(e.target.value)}
                   />
                   {responseError.status && (
                     <p className="responseError">{responseError.message}</p>
