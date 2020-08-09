@@ -1,1 +1,1 @@
-export const Api = "http://192.168.1.31:3010";
+export const Api = "https://wedding-guest-dono-leah.herokuapp.com";

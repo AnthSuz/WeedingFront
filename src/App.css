@@ -8,7 +8,7 @@ button {
 }
 
 p {
-  font-family: "Roboto", "Verdana";
+  font-family: "Lato", "Roboto", "Verdana";
 }
 
 body {
@@ -80,7 +80,7 @@ hr {
 .button {
   display: flex;
   justify-content: space-evenly;
-  padding: 66px 0;
+  padding: 16px 0;
   background-color: #f6f6f6;
   height: auto;
 }

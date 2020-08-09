@@ -19,12 +19,29 @@ function Home() {
       history.push("/public/invit_weeding");
     } catch (error) {
       setError(true);
+      history.push("/public/error_weeding");
     }
   };
 
   return (
     <>
       <div className="container">
+        <div style={{ textAlign: "center" }}>
+          <div>
+            <p>Mr et Mme Samama François et Jacqueline</p>
+            <p>Mr et Mme Sakoun Stéphane et Véronique</p>
+          </div>
+          <div>
+            <p>Mme Baranes Isabelle</p>
+          </div>
+        </div>
+        <p style={{ textAlign: "center", padding: "0 10px" }}>
+          Ont la joie de vous annoncer le mariage de leurs petits enfant et
+          enfant
+        </p>
+        <p style={{ fontWeight: "600", textAlign: "center" }}>
+          Leah et Donovan
+        </p>
         <div className="button">
           <Link to="/public/info_weeding">
             <Button

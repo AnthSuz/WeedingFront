@@ -6,6 +6,7 @@ import Home from "./containers_public/Home";
 import InfoWeeding from "./containers_public/InfoWeeding";
 import InvitWeeding from "./containers_public/InvitWeeding";
 import ValidInvitWeeding from "./containers_public/ValidInvitWeeding";
+import ErrorWeeding from "./containers_public/ErrorWeeding";
 
 function Public() {
   return (
@@ -25,6 +26,9 @@ function Public() {
         </Route>
         <Route exact={true} path="/public/confirm_invit_weeding">
           <ValidInvitWeeding />
+        </Route>
+        <Route exact={true} path="/public/error_weeding">
+          <ErrorWeeding />
         </Route>
       </Switch>
     </>
