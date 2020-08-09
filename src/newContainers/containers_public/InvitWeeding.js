@@ -195,7 +195,14 @@ function InvitWeeding() {
     } else if (childrenOk.length > 0) {
       allowedChildren();
     }
-  }, [name, firstname]);
+  }, [
+    name,
+    firstname,
+    allowedChildren,
+    childrenOk.length,
+    childrenTrue,
+    presence,
+  ]);
   console.log("presence", presence);
 
   return (
