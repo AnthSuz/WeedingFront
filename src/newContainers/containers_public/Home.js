@@ -36,8 +36,8 @@ function Home() {
           </div>
         </div>
         <p style={{ textAlign: "center", padding: "0 10px" }}>
-          Ont la joie de vous annoncer le mariage de leurs petits enfant et
-          enfant
+          Ont la joie de vous annoncer le mariage de leurs petits enfants et
+          enfants
         </p>
         <p style={{ fontWeight: "600", textAlign: "center" }}>
           Leah et Donovan
