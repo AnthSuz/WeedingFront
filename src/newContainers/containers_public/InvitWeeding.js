@@ -45,21 +45,21 @@ function InvitWeeding() {
     }
   };
 
-  const childrenTrue = async () => {
-    if (childrenOk.length === 0) {
-      try {
-        setPresence("Oui");
-        setIsLoading(true);
+  // const childrenTrue = async () => {
+  //   if (childrenOk.length === 0) {
+  //     try {
+  //       setPresence("Oui");
+  //       setIsLoading(true);
 
-        const responseChildren = await axios.get(Api + "/children/read");
-        setIsLoading(false);
-        setChildrenOk(responseChildren.data);
-      } catch (error) {
-        setIsLoading(false);
-        console.log("error 2");
-      }
-    }
-  };
+  //       const responseChildren = await axios.get(Api + "/children/read");
+  //       setIsLoading(false);
+  //       setChildrenOk(responseChildren.data);
+  //     } catch (error) {
+  //       setIsLoading(false);
+  //       console.log("error 2");
+  //     }
+  //   }
+  // };
 
   let firstNameAllowedChildren = [];
   let nameAllowedChildren = [];
@@ -83,33 +83,33 @@ function InvitWeeding() {
     }
   }
 
-  function allowedChildren() {
-    // Nom & Prénom des invités qui ont été invité avec leur enfant
-    if (
-      // Si ils sont dans le tableau on passe le state à 1 (Qui permettera de proposer le nombre d'adulte et nombre d'enfant)
-      nameAllowedChildren.indexOf(name.toUpperCase()) !== -1 &&
-      firstNameAllowedChildren.indexOf(firstname.toUpperCase()) !== -1
-    ) {
-      setChildrenAllowed(1);
-    } else if (
-      nameAllowedChildren.indexOf(name.toUpperCase()) !== -1 &&
-      firstNameAllowedChildren.indexOf(firstname.toUpperCase()) === -1 &&
-      firstname.length >= 3
-    ) {
-      setChildrenAllowed(2);
-    } else if (
-      // Si ils ne sont pas dans le tableau alors on passe le state à 2 (Qui permettera de proposer uniquement le nombre d'adulte)
-      nameAllowedChildren.indexOf(name.toUpperCase()) === -1 &&
-      firstNameAllowedChildren.indexOf(firstname.toUpperCase()) === -1 &&
-      name.length !== 0 &&
-      firstname.length >= 3
-    ) {
-      setChildrenAllowed(2);
-    } else if (name.length === 0 || firstname.length === 0) {
-      // Si les champs sont vide, on passe le state à 0 (Qui permettera d'obliger les utilisateurs à remplir les champs pour être attribuer au State 1 ou 2)
-      setChildrenAllowed(0);
-    }
-  }
+  // function allowedChildren() {
+  //   // Nom & Prénom des invités qui ont été invité avec leur enfant
+  //   if (
+  //     // Si ils sont dans le tableau on passe le state à 1 (Qui permettera de proposer le nombre d'adulte et nombre d'enfant)
+  //     nameAllowedChildren.indexOf(name.toUpperCase()) !== -1 &&
+  //     firstNameAllowedChildren.indexOf(firstname.toUpperCase()) !== -1
+  //   ) {
+  //     setChildrenAllowed(1);
+  //   } else if (
+  //     nameAllowedChildren.indexOf(name.toUpperCase()) !== -1 &&
+  //     firstNameAllowedChildren.indexOf(firstname.toUpperCase()) === -1 &&
+  //     firstname.length >= 3
+  //   ) {
+  //     setChildrenAllowed(2);
+  //   } else if (
+  //     // Si ils ne sont pas dans le tableau alors on passe le state à 2 (Qui permettera de proposer uniquement le nombre d'adulte)
+  //     nameAllowedChildren.indexOf(name.toUpperCase()) === -1 &&
+  //     firstNameAllowedChildren.indexOf(firstname.toUpperCase()) === -1 &&
+  //     name.length !== 0 &&
+  //     firstname.length >= 3
+  //   ) {
+  //     setChildrenAllowed(2);
+  //   } else if (name.length === 0 || firstname.length === 0) {
+  //     // Si les champs sont vide, on passe le state à 0 (Qui permettera d'obliger les utilisateurs à remplir les champs pour être attribuer au State 1 ou 2)
+  //     setChildrenAllowed(0);
+  //   }
+  // }
 
   // Function du boutton validé si la réponse est OUI - AVEC nombre d'enfant
   function childrenAllowedOne() {
@@ -188,11 +188,80 @@ function InvitWeeding() {
   useEffect(() => {
     if (name.length >= 3 && firstname.length >= 3 && presence === "Oui") {
       console.log("useEffect name firstname", { name }, { firstname });
+      function allowedChildren() {
+        // Nom & Prénom des invités qui ont été invité avec leur enfant
+        if (
+          // Si ils sont dans le tableau on passe le state à 1 (Qui permettera de proposer le nombre d'adulte et nombre d'enfant)
+          nameAllowedChildren.indexOf(name.toUpperCase()) !== -1 &&
+          firstNameAllowedChildren.indexOf(firstname.toUpperCase()) !== -1
+        ) {
+          setChildrenAllowed(1);
+        } else if (
+          nameAllowedChildren.indexOf(name.toUpperCase()) !== -1 &&
+          firstNameAllowedChildren.indexOf(firstname.toUpperCase()) === -1 &&
+          firstname.length >= 3
+        ) {
+          setChildrenAllowed(2);
+        } else if (
+          // Si ils ne sont pas dans le tableau alors on passe le state à 2 (Qui permettera de proposer uniquement le nombre d'adulte)
+          nameAllowedChildren.indexOf(name.toUpperCase()) === -1 &&
+          firstNameAllowedChildren.indexOf(firstname.toUpperCase()) === -1 &&
+          name.length !== 0 &&
+          firstname.length >= 3
+        ) {
+          setChildrenAllowed(2);
+        } else if (name.length === 0 || firstname.length === 0) {
+          // Si les champs sont vide, on passe le state à 0 (Qui permettera d'obliger les utilisateurs à remplir les champs pour être attribuer au State 1 ou 2)
+          setChildrenAllowed(0);
+        }
+      }
       allowedChildren();
+      const childrenTrue = async () => {
+        if (childrenOk.length === 0) {
+          try {
+            setPresence("Oui");
+            setIsLoading(true);
+
+            const responseChildren = await axios.get(Api + "/children/read");
+            setIsLoading(false);
+            setChildrenOk(responseChildren.data);
+          } catch (error) {
+            setIsLoading(false);
+            console.log("error 2");
+          }
+        }
+      };
       childrenTrue();
     } else if (presence === "Non") {
       return;
     } else if (childrenOk.length > 0) {
+      function allowedChildren() {
+        // Nom & Prénom des invités qui ont été invité avec leur enfant
+        if (
+          // Si ils sont dans le tableau on passe le state à 1 (Qui permettera de proposer le nombre d'adulte et nombre d'enfant)
+          nameAllowedChildren.indexOf(name.toUpperCase()) !== -1 &&
+          firstNameAllowedChildren.indexOf(firstname.toUpperCase()) !== -1
+        ) {
+          setChildrenAllowed(1);
+        } else if (
+          nameAllowedChildren.indexOf(name.toUpperCase()) !== -1 &&
+          firstNameAllowedChildren.indexOf(firstname.toUpperCase()) === -1 &&
+          firstname.length >= 3
+        ) {
+          setChildrenAllowed(2);
+        } else if (
+          // Si ils ne sont pas dans le tableau alors on passe le state à 2 (Qui permettera de proposer uniquement le nombre d'adulte)
+          nameAllowedChildren.indexOf(name.toUpperCase()) === -1 &&
+          firstNameAllowedChildren.indexOf(firstname.toUpperCase()) === -1 &&
+          name.length !== 0 &&
+          firstname.length >= 3
+        ) {
+          setChildrenAllowed(2);
+        } else if (name.length === 0 || firstname.length === 0) {
+          // Si les champs sont vide, on passe le state à 0 (Qui permettera d'obliger les utilisateurs à remplir les champs pour être attribuer au State 1 ou 2)
+          setChildrenAllowed(0);
+        }
+      }
       allowedChildren();
     }
   }, [name, firstname]);
